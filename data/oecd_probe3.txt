@@ -1,0 +1,18 @@
+[406] https://sdmx.oecd.org/public/rest/dataflow
+  acceptable: application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1, application/vnd.sdmx.structure+json; charset
+
+[406] https://sdmx.oecd.org/public/rest/dataflow/OECD
+  acceptable: application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1, application/vnd.sdmx.structure+json; charset
+
+[406] https://sdmx.oecd.org/public/rest/dataflow?detail=allstubs
+  acceptable: application/vnd.sdmx.structure+xml; version=2.1; charset=utf-8, application/vnd.sdmx.structure+json; version
+
+[404] https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_CPI,1.0/M.KOR..?startP
+  Could not find Dataflow and/or DSD related with this data request
+
+[422] https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_LFS@DF_IALFS_UNE_M,1.0/M.KOR..?startPer
+  Not enough key values in query, expecting 9 got 4
+
+[404] https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,5.0/M.KOR.LI...?startPerio
+  Could not find Dataflow and/or DSD related with this data request
+

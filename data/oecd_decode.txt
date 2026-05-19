@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 64, in <module>
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+UNE_RATE filter [404]
+UNE wildcard [200]
+Series dims:
+  [0] REF_AREA: ['KOR']
+  [1] MEASURE: ['UNE_LF_M']
+  [2] UNIT_MEASURE: ['PT_LF_SUB']
+  [3] TRANSFORMATION: ['_Z']
+  [4] ADJUSTMENT: ['N', 'Y']
+  [5] SEX: ['_T', 'F', 'M']
+  [6] AGE: ['Y15T24', 'Y_GE15', 'Y_GE25']
+  [7] ACTIVITY: ['_Z']
+  [8] FREQ: ['Q', 'M']
+Series count: 36
+
+Core CPI KOR [200]
+{"meta":{"schema":"https://raw.githubusercontent.com/sdmx-twg/sdmx-json/master/data-message/tools/schemas/2.0.0/sdmx-json-data-schema.json","id":"IREF017372","prepared":"2026-05-18T13:34:45Z","test":false,"contentLanguages":["en","en-US"],"sender":{"id":"Disseminate_Final_DMZ","name":"unknown","names":{"en-US":"unknown"}}},"data":{"dataSets":[{"structure":0,"action":"Information","links":[{"urn":"urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=OECD.SDD.TPS:DSD_PRICES(1.0)","rel":"DataStructure"}],"annotations":[0,1,2,3,4,5,6],"dimensionGroupAttributes":{"0:~:~:~:~:~:~:~:~":[7],"0:~:0:0
+

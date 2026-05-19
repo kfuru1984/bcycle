@@ -1,0 +1,16 @@
+Core CPI YoY (%)
+  coverage: 1990-01 to 2026-04  (436 obs)
+  latest:   2.169
+
+Unemployment SA % (Y_GE15, total, M)
+  coverage: 1990-12 to 1999-05  (2 obs)
+  latest:   6.800
+
+Exports YoY % (KEI)
+  coverage: 2013-12 to 2026-03  (68 obs)
+  latest:   47.868
+
+Consumer Confidence (CCICP, level)
+  coverage: 1998-12 to 2026-04  (329 obs)
+  latest:   -0.800
+

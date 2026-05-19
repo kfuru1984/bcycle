@@ -1,0 +1,9 @@
+DSD_KEI@DF_KEI -- Key short-term economic indicators
+DSD_STES@DF_BTS -- Business tendency surveys
+DSD_STES@DF_CLI -- Composite leading indicators
+DSD_STES@DF_CS -- Consumer opinion surveys
+DSD_STES@DF_CSBAR -- Consumer barometer
+DSD_STES@DF_FINMARK -- Financial market
+DSD_STES@DF_INDSERV -- Production, sales, work started and orders
+DSD_STES@DF_MONAGG -- Monetary aggregates
+DSD_STES_REVISIONS@DF_STES_REVISIONS -- Short-term economic statistics revisions

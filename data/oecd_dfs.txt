@@ -1,0 +1,87 @@
+Traceback (most recent call last):
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 15, in <module>
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+dataflow/OECD.SDD.TPS [200]
+  total: 110
+   DSD_ALFS@DF_ALFS_EMP -- Employment by activites and status (ALFS)
+   DSD_ALFS@DF_ALFS_EMP_EES -- Number of employees by activities (ISIC Rev. 4)
+   DSD_ALFS@DF_ALFS_EMP_ICSE93 -- Employment by professional status (ICSE-93)
+   DSD_ALFS@DF_ALFS_EMP_ISIC -- Employment by activities (ISIC Rev. 4)
+   DSD_ALFS@DF_SUMTAB -- Annual labour force survey, summary tables
+   DSD_BATIS@DF_BATIS -- Balanced trade in services (BaTIS)
+   DSD_BIMTS@DF_BIMTS_CPA_2_1 -- Balanced international merchandise trade statistics (BIMTS) - CPA 2.1
+   DSD_BIMTS@DF_BIMTS_HS2017_2D -- Balanced international merchandise trade statistics (BIMTS) - HS2017-2D
+   DSD_BIMTS@DF_BIMTS_HS2017_4D -- Balanced international merchandise trade statistics (BIMTS) - HS2017-4D
+   DSD_BIMTS_6D@DF_BIMTS_HS2017_6D -- Balanced international merchandise trade statistics (BIMTS) - HS2017-6D
+   DSD_BOP@DF_TIS -- International trade in services
+   DSD_CPI_COU_WEIGHTS@DF_CPI_CTRY_WEIGHTS -- CPI country weights - OECD composition
+   DSD_G20_PRICES@DF_G20_PRICES -- G20 - Consumer price indices, all items
+   DSD_IMTS@DF_IMTS -- International merchandise trade statistics
+   DSD_ITIC@DF_ITIC -- International transport and insurance costs of merchandise trade (ITIC)
+   DSD_ITIC@DF_ITIC -- International transport and insurance costs of merchandise trade (ITIC)
+   DSD_LFS@DF_IALFS_EMP_ISIC4_Q -- Employed population by economic activity
+   DSD_LFS@DF_IALFS_EMP_Q -- Employed population by age groups
+   DSD_LFS@DF_IALFS_EMP_WAP_Q -- Employment rate
+   DSD_LFS@DF_IALFS_INDIC -- Infra-annual labour statistics
+   DSD_LFS@DF_IALFS_LF_Q -- Labour force population
+   DSD_LFS@DF_IALFS_LF_WAP_Q -- Labour force participation rate
+   DSD_LFS@DF_IALFS_OLF_WAP_Q -- Population outside the labour force
+   DSD_LFS@DF_IALFS_UNE_LF_M -- Monthly unemployment levels
+   DSD_LFS@DF_IALFS_UNE_M -- Monthly unemployment rates
+   DSD_LFS@DF_IALFS_UNE_Q -- Unemployed population
+   DSD_LFS@DF_IALFS_WAP_Q -- Working-age population
+   DSD_OLAB@DF_OIALAB_INDIC -- Infra-annual registered unemployment and job vacancies
+   DSD_PDB@DF_PDB_ULC_Q -- Productivity and unit labour costs
+   DSD_PPP@DF_PPP_CPL -- PPP detailed results, 2022 onwards: Price level indices
+   DSD_PPP_M@DF_PP_CPL_M -- Monthly comparative price levels
+   DSD_PRICES@DF_PRICES_ALL -- Consumer price indices (CPIs, HICPs), COICOP 1999
+   DSD_PRICES@DF_PRICES_CONTRIB -- Contribution to year-on-year inflation by COICOP 1999 by country
+   DSD_PRICES@DF_PRICES_HICP -- Eurostat harmonised index of consumer prices (HICP)
+   DSD_PRICES@DF_PRICES_HICP_IT_W -- Eurostat harmonised index of consumer prices (HICP), Item weights, All countries, All items
+   DSD_PRICES@DF_PRICES_N_CP01 -- National CPI, Growth rate over one year, All countries, Food and non-alcoholic beverages, COICOP 1999
+   DSD_PRICES@DF_PRICES_N_CP045_0722 -- National CPI, Growth rate over one year, All countries, Energy, COICOP 1999
+   DSD_PRICES@DF_PRICES_N_IT_W -- National CPI, Item weights, COICOP 1999, All countries, All items
+   DSD_PRICES@DF_PRICES_N_TXCP01_NRG -- National CPI, Growth rate over one year, All countries, All items less food and energy, COICOP 1999
+   DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL -- Consumer price indices (CPIs,HICPs), COICOP 2018
+   DSD_PRICES_COICOP2018@DF_PRICES_C2018_CONTRIB -- Contribution to year-on-year inflation by COICOP 2018 by country
+   DSD_PRICES_COICOP2018@DF_PRICES_C2018_HICP_IT_W -- Eurostat harmonised index of consumer prices (HICP), Item weights, All countries, All items, COICOP 2018
+   DSD_PRICES_COICOP2018@DF_PRICES_C2018_N_CP01 -- National CPI, Growth rate over one year, All countries, Food and non-alcoholic beverages, COICOP 2018
+   DSD_PRICES_COICOP2018@DF_PRICES_C2018_N_CP045_0722 -- National CPI, Growth rate over one year, All countries, Energy, COICOP 2018
+   DSD_PRICES_COICOP2018@DF_PRICES_C2018_N_IT_W -- National CPI, Item weights, COICOP 2018, All countries, All items
+   DSD_PRICES_COICOP2018@DF_PRICES_C2018_N_TXCP01_NRG -- National CPI, Growth rate over one year, All countries, All items less food and energy, COICOP 2018
+   DSD_PRICES_COICOP2018@DF_PRICES_HICP_C2018 -- Eurostat harmonised index of consumer prices (HICP), COICOP 2018
+   DSD_PRICES_EXC@DF_PRICES_EXCHANGE -- Consumer price indices (CPIs), exchange, API only,COICOP 1999
+   DSD_PRICES_EXC_C18@DF_PRICES_EXCHANGE_COICOP18 -- Consumer price indices (CPIs), exchange, API only,COICOP 2018
+   DSD_RHPI@DF_RHPI_ALL -- National and regional house price indices
+   DSD_RHPI_TARGET@DF_RHPI_TARGET -- National and regional house price indices, headline indicators
+   DSD_TEC_ISIC4@DF_TEC -- Trade in goods by enterprise characteristics (for API users)
+   DSD_TEC_ISIC4@DF_TEC01 -- Trade in goods by enterprise characteristics by economic activity and size class
+   DSD_TEC_ISIC4@DF_TEC02 -- Trade in goods by enterprise characteristics by economic activity and concentration of trade (top enterprises)
+   DSD_TEC_ISIC4@DF_TEC03 -- Trade in goods by enterprise characteristics by partner zones and countries
+   DSD_TEC_ISIC4@DF_TEC04 -- Trade in goods by enterprise characteristics by number of partner countries and activity
+   DSD_TEC_ISIC4@DF_TEC05 -- Trade in goods by enterprise characteristics by commodity groups (CPC)
+   DSD_TEC_ISIC4@DF_TEC06 -- Trade in goods by enterprise characteristics by type of trader
+   DSD_TEC_ISIC4@DF_TEC07 -- Trade in goods by enterprise characteristics by ownership (domestic or foreign)
+   DSD_TEC_ISIC4@DF_TEC08 -- Trade in goods by enterprise characteristics by exports intensity
+   DSD_TEC_ISIC4@DF_TEC09 -- Trade in goods by enterprise characteristics by activity sectors
+   DSD_TEC_ISIC4@DF_TEC10 -- Trade in goods by enterprise characteristics by partner countries and size-class
+
+dataflow/OECD.SDD.STES [200]

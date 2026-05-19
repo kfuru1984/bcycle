@@ -1,0 +1,10 @@
+[200] https://stats.oecd.org/SDMX-JSON/data/MEI/KOR.CPALTT01.IXOB.M/OECD?startTime=2020-01&endTi
+  Content-Type: application/vnd.sdmx.data+json; version=2; charset=utf-8
+  Body[:300]: {"meta":{"schema":"https://raw.githubusercontent.com/sdmx-twg/sdmx-json/master/data-message/tools/schemas/2.0.0/sdmx-json-data-schema.json","id":"IREF000155","prepared":"2026-05-18T13:25:06Z","test":false,"contentLanguages":["en","en-US"],"sender":{"id":"Archive","name":"unknown","names":{"en-US":"u
+
+[404] https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_CPI,1.0/KOR...?st
+
+[404] https://sdmx.oecd.org/public/rest/data/OECD,PRICES_CPI/KOR..?startPeriod=2020-01
+
+[404] https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_CPI/KOR..?startPe
+

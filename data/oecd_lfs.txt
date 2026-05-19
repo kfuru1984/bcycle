@@ -1,0 +1,16 @@
+LFS wildcard [404]
+NoResultsFound
+
+CPI DSD OECD.SDD.TPS/DSD_PRICES/1.0 [200]
+  pos=0 id=REF_AREA
+  pos=1 id=FREQ
+  pos=2 id=METHODOLOGY
+  pos=3 id=MEASURE
+  pos=4 id=UNIT_MEASURE
+  pos=5 id=EXPENDITURE
+  pos=6 id=ADJUSTMENT
+  pos=7 id=TRANSFORMATION
+
+CPI DSD OECD.SDD.TPS/DSD_PRICES_CPI/1.0 [404]
+  Could not find requested structures
+

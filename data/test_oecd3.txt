@@ -1,0 +1,15 @@
+Unemployment (non-SA, Y_GE15, total, M)
+  coverage: 1990-12 to 1999-05  (2 obs)
+  latest:   6.800
+  2020-04: n/a
+
+Exports YoY % (UNIT=GR)
+  coverage: 1998-09 to 2025-12  (198 obs)
+  latest:   14.395
+  2020-04: 2.129
+
+Exports YoY % (UNIT=PA)
+  coverage: 2013-12 to 2026-03  (68 obs)
+  latest:   47.868
+  2020-04: 10.253
+

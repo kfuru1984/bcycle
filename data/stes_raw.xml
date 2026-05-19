@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--NSI Web Service v8.19.8.0-->
+<message:Structure xmlns:message="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message" xmlns:structure="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/structure" xmlns:common="http://www.sdmx.org/resources/sdmxml/schemas/v2_1/common">
+  <message:Header>
+    <message:ID>IDREF6574</message:ID>
+    <message:Test>false</message:Test>
+    <message:Prepared>2026-05-17T17:22:49.9729964+02:00</message:Prepared>
+    <message:Sender id="Unknown" />
+    <message:Receiver id="Unknown" />
+  </message:Header>
+  <message:Structures>
+    <structure:Dataflows>
+      <structure:Dataflow id="DSD_KEI@DF_KEI" agencyID="OECD.SDD.STES" version="4.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,ACTIVITY=_Z,TRANSFORMATION=_Z,ADJUSTMENT=_Z,UNIT_MEASURE=GR</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>FREQ=M,MEASURE=PRVM,UNIT_MEASURE=IX,ACTIVITY=BTE</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_MEASURE:MEASURE,ACTIVITY;COMBINED_UNIT_MEASURE:UNIT_MEASURE,BASE_PER,UNIT_MULT,TRANSFORMATION,ADJUSTMENT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_MEASURE:Measure;COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_MEASURE:Mesure;COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Key short-term economic indicators</common:Name>
+        <common:Name xml:lang="fr">Indicateurs économiques clés à court-terme</common:Name>
+        <common:Description xml:lang="en">The Key Economic Indicators (KEI) database contains monthly and quarterly statistics (and associated statistical methodological information) for all OECD member countries and for a selection of non-member countries on a wide variety of economic indicators, namely: quarterly national accounts, industrial production, composite leading indicators, business tendency and consumer opinion surveys, retail trade, consumer and producer prices, hourly earnings, employment/unemployment, interest rates, monetary aggregates, exchange rates, international trade and balance of payments.&lt;p /&gt;Indicators have been prepared by national statistical agencies primarily to meet the requirements of users within their own country. In most instances, the indicators are compiled in accordance with international statistical guidelines and recommendations. However, national practices may depart from these guidelines, and these departures may impact on comparability between countries. There is an on-going process of review and revision of the contents of the database in order to maximise the relevance of the database for short-term economic analysis.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;OECD statistics contact&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Statistics and Data Directorate&lt;/a&gt;</common:Description>
+        <common:Description xml:lang="fr">La base de données des indicateurs économiques clés (IEC) contient, pour tous les pays membres de l'OCDE et une sélection des économies non membres, des statistiques mensuelles et trimestrielles (ainsi que des notes méthodologiques associées à ces statistiques) sur une grande variété d'indicateurs économiques, tels que les comptes nationaux trimestriels, la production industrielle, les indicateurs composites avancés, les enquêtes de conjoncture auprès des entreprises et des ménages, le commerce de détail, les prix à la consommation et à la production, les gains horaires, l'emploi et le chômage, les taux d'intérêt, les agrégats monétaires, les taux de change, le commerce international et la balance des paiements.&lt;p /&gt;Les indicateurs sont avant tout calculés par les agences statistiques nationales de manière à satisfaire leurs propres besoins. Dans la plupart des cas, ces indicateurs sont calculés en tenant compte des recommandations et des standards statistiques internationaux. Cependant, les pratiques nationales peuvent s'écarter de ces standards internationaux et ces écarts peuvent avoir un impact quant à la comparaison entre pays. Le contenu de cette base de données est en permanence revu et corrigé afin d'améliorer sa pertinence pour l'analyse économique à court-terme.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;Contact pour les statistiques de l'OCDE&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Direction des statistiques et des données&lt;/a&gt;</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_KEI" version="4.0" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES@DF_BTS" agencyID="OECD.SDD.STES" version="4.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>ACTIVITY,MEASURE</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_HORIZ</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW_SECTION</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,METHODOLOGY=N</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA=FRA,FREQ=M</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_UNIT_MEASURE:UNIT_MEASURE,ADJUSTMENT,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Business tendency surveys</common:Name>
+        <common:Name xml:lang="fr">Opinions des industriels</common:Name>
+        <common:Description xml:lang="en">Business Tendency Surveys (BTS) – also called business opinion or business climate surveys – are economic surveys used to monitor and forecast business cycles. 
+Covering 4 different economic sectors (manufacturing, construction, retail trade and services), they are designed to collect qualitative information useful in monitoring
+the current business situation and forecasting short-term developments by directly asking company managers about the pulse of their businesses. They are well known for providing advance warning of turning points in aggregate economic activity as measured by GDP or industrial production. As respondents provide answers on a 3 scale options (up, same, down, or above normal, normal, below normal), data are summarised in net balances corresponsing to the difference in % of positive over negative replies. Because of their collection mode, timeliness and immediate availability, they have proved to be a cost‑effective mean of generating timely information especially during crises. 
+In the late '90, in collaboration with the European Commission, the OECD has developed a system of harmonised business tendency surveys in order to collect and compare data across countries.
+The EC Directorate General for Economic and Financial Affairs is since then in charge of running the program and collecting data across EU members, while the OECD helped the adoption and implementation 
+of the same harmonised framework in non-EU OECD countries and BRIICS. By construction, BTS questions are formulated in order to exclude seasonal factors. Nevertheless all series are tested for seasonality by both the OECD (using x12) and by the EC for the EU member data (using DAINTIES). This dataset comprises a set of harmonised target indicators available across OECD and BRIICS countries, any departure from target definitions are
+documented in the metadata.</common:Description>
+        <common:Description xml:lang="fr">Les enquêtes sur les tendances des entreprises (BTS) - également appelées enquêtes sur l'opinion des entreprises ou enquêtes sur le climat des affaires - sont des enquêtes économiques utilisées pour suivre et prévoir les cycles économiques. Couvrant quatre secteurs économiques différents (l'industrie manufacturière, la construction, le commerce de détail et les services), elles sont conçues pour collecter des informations qualitatives utiles pour surveiller
+la situation actuelle des entreprises et la prévision de leur évolution à court terme, en interrogeant directement les chefs d'entreprise sur le pouls de leur activité. Elles sont bien connues pour avertir à l'avance des tournants de l'activité économique globale, mesurée par le PIB ou la production industrielle. Comme les répondants donnent des réponses sur une échelle de trois options (en hausse, identique, en baisse, ou au-dessus de la normale, normale, en dessous de la normale), les données sont résumées en soldes nets correspondant à la différence en % de réponses positives par rapport aux réponses négatives. En raison de leur mode de collecte, de leur actualité et de leur disponibilité immédiate, elles se sont avérées être un moyen rentable de produire des informations opportunes, en particulier pendant les crises. À la fin des années 1990, en collaboration avec la Commission européenne, l'OCDE a mis au point un système d'enquêtes harmonisées sur les tendances des entreprises afin de collecter et de comparer les données entre les pays. La Direction générale des affaires économiques et financières de la CE est depuis lors chargée de la gestion du programme et de la collecte des données dans les pays membres de l'UE, tandis que l'OCDE a contribué à l'adoption et la mise en œuvre du même cadre harmonisé dans les pays de l'OCDE non membres de l'UE et les BRIICS. Par construction, les questions du BTS sont formulées de manière à exclure les facteurs saisonniers. Néanmoins, toutes les séries sont testées pour la saisonnalité à la fois par l'OCDE (en utilisant x12) et par la CE pour les données des États membres de l'UE (à l'aide de DAINTIES). Ce jeu de données comprend un ensemble d'indicateurs cibles harmonisés disponibles dans les pays de l'OCDE et les pays BRIICS. Tout écart par rapport aux définitions des objectifs est documenté dans les métadonnées.</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES" version="4.0" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES@DF_CLI" agencyID="OECD.SDD.STES" version="4.1" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,UNIT_MEASURE=IX,METHODOLOGY=N</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>MEASURE=LI,ADJUSTMENT=AA,FREQ=M,METHODOLOGY=H,LASTNPERIODS=10</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_UNIT_MEASURE:TRANSFORMATION,ADJUSTMENT,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Composite leading indicators</common:Name>
+        <common:Name xml:lang="fr">Indicateurs composites avancés</common:Name>
+        <common:Description xml:lang="en">The composite leading indicator is a times series, formed by aggregating a variety of component indicators which show a reasonably consistent relationship with a reference series (e.g. industrial production IIP up to March 2012 and since then the reference series is GDP) at turning points. The OECD CLI is designed to provide qualitative information on short-term economic movements, especially at the turning points, rather than quantitative measures. Therefore, the main message of CLI movements over time is the increase or decrease, rather than the amplitude of the changes.  The OECD’s headline indicator is the amplitude adjusted CLI. In practice, turning points in the de-trended reference series have been found about 4 to 8 months (on average) after the signals of turning points had been detected in the headline CLI. Detailed information on the OECD methodology for CLIs can be found on the OECD website at:  &lt;a href="https://www.oecd.org/sdd/leading-indicators/oecd-composite-leading-indicators-clis.htm/"&gt;OECD CLIs&lt;/a&gt;&lt;p /&gt;CLIs are calculated for G20 countries plus Spain and 5 zone aggregates. A country CLI comprises a set of component series selected from a wide range of key short-term economic indicators.  CLIs, reference series data (see below) and standardised business and consumer confidence indicators are presented in various forms. &lt;p /&gt;&lt;a href="http://www.oecd.org/std/leading-indicators/41629509.pdf"&gt;OECD CLI methodology document&lt;/a&gt;&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;OECD statistics contact&lt;/a&gt;&lt;p /&gt;</common:Description>
+        <common:Description xml:lang="fr">L'indicateur composite avancé est une série temporelle, constituée par l'agrégation d'un ensemble d'indicateurs composants, qui met en évidence une relation cohérente et consistente aux points de retournements avec une  série de référence (l’indice de la production industrielle jusqu'en mars 2012 et depuis c'est le PIB qui représente la série de référence). Les indicateurs composites avancés de l'OCDE ont été élaborés pour fournir des informations qualitatives sur les évolutions économiques à court terme, en particulier aux points de retournement, plutôt que des mesures quantitatives. Par conséquent, le message principal des indicateurs composites avancés est dans la direction de leurs mouvements au cours du temps plutôt que dans l'amplitude de ces mouvements. L’OCDE s’intéresse principalement à la forme « corrigée de l’amplitude » de l’indicateur composite avancé. En pratique, les points de retournement de la série de référence corrigée de la tendance sont observés environ 4 à 8 mois (en moyenne) après que les signaux des points de retournement ont été détectés à l’aide de l’indicateur composite avancé sous sa forme corrigée de l’amplitude. Des informations détaillées sur la méthodologie de l'OCDE pour les indicateurs composites avancés sont disponibles sur le site Internet de l'OCDE à l'adresse:   &lt;a href="https://www.oecd.org/sdd/leading-indicators/oecd-composite-leading-indicators-clis.htm"&gt;ICA OCDE&lt;/a&gt;&lt;p /&gt; Les indicateurs composites avancés sont calculés pour pour les pays du G20 plus l'Espagne et pour cinq zones. Pour plus d’information sur l’interprétation et la comparabilité de ces différentes formes veuillez vous référer  à la note méthodologique: Le système des indicateurs composites avancés:  &lt;a href="http://www.oecd.org/std/leading-indicators/41629509.pdf"&gt;indicateurs composites avancés&lt;/a&gt;&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;Contact pour les statistiques de l'OCDE&lt;/a&gt;&lt;p /&gt;</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES" version="4.1" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES@DF_CS" agencyID="OECD.SDD.STES" version="4.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA,ACTIVITY,MEASURE,TIME_HORIZ,SOURCE</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,METHODOLOGY=N</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>MEASURE=CCICP,FREQ=M</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_UNIT_MEASURE:UNIT_MEASURE,ADJUSTMENT,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Consumer opinion surveys</common:Name>
+        <common:Name xml:lang="fr">Opinions des ménages</common:Name>
+        <common:Description xml:lang="en">The consumer opinion survey indicators cover a restricted set of indicators on consumer confidence, expected economic situation and price expectations.&lt;p /&gt;Consumer opinion surveys provide qualitative information that has proved useful for monitoring the current economic situation. Typically they are based on a sample of households and respondents are asked about their assessments of the current situation and expectations for the immediate future.  In the case of consumer surveys their intentions concerning major purposes, economic situation now compared with the recent past and expectations for the immediate future.  Many survey series provide advance warning of turning points in aggregate economic activity as measured by GDP or industrial production. Such series are known as leading indicators in cyclical analysis. These types of survey series are widely used as component series in composite leading indicators. The main characteristic of these types of surveys is that instead of asking for exact figures, they usually ask for the direction of change e.g. a question on tendency by reference to a “normal” state, e.g. of production level.  Possible answers are generally of the five point scale type e.g. increase sharply/increase slightly/remain the same/fall slightly/fall sharply for consumer surveys.  In presenting the results as a time series, only the balance is shown. That is “same” or “normal” answers are ignored and the balance is obtained by taking the difference between percentages of respondents giving favourable and unfavourable answers.Virtually all consumer opinion survey data are presented as time series of balances in this dataset, either in raw or seasonally adjusted form.  Very few series are presented as indices, and where these exist they have generally been converted from underlying balances by countries before submitting the data to the OECD.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;OECD statistics contact&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Statistics and Data Directorate&lt;/a&gt;</common:Description>
+        <common:Description xml:lang="fr">Les indicateurs des enquêtes de conjoncture auprès des ménages regroupent un ensemble restreint d'indicateurs  sur la confiance des consommateurs, les attentes de la situation économique et les attentes sur l'évolution des prix.&lt;p /&gt;Les enquêtes d'opinions auprès des ménages fournissent une information qualitative qui a fait ses preuves pour l'observation de la situation économique actuelle. Par définition, elles sont issues d'un échantillon de ménages et les répondants sont questionnés sur leur évaluation de la situation courante et des perspectives pour le futur immédiat.  Dans le cas des ménages, les enquêtes s'intéressent à leurs intentions concernant leurs achats importants, leur situation  économique actuelle comparée avec celle d'un passé récent ainsi que leurs attentes pour le futur immédiat. Beaucoup de séries d'enquête fournissent une alerte en avance des points de retournement de l'ensemble de l'activité économique mesurée par le PIB ou par la production industrielle.  De telles séries sont connues sous le nom d'indicateurs avancés en analyse cyclique. Ces enquêtes de conjoncture sont largement utilisées en tant que composantes des indicateurs composites avancés. La caractéristique principale de ces enquêtes est qu'au lieu de demander des chiffres précis, il est généralement  demandé la direction du changement i.e. une question sur la tendance par rapport à un état dit " normal " utilisé comme point de référence i.e. le niveau de la production.  Les possibilités de réponse sont généralement au nombre de cinq pour les enquêtes auprès des ménages i.e. augmentera nettement/augmentera un peu/ restera stationnaire/diminuera un peu/diminuera nettement. Seuls les soldes sont publiés en séries temporelles. De ce fait, les réponses " identique " ou " normal " ne sont pas prises en compte et les soldes sont obtenus en prenant la différence entre les pourcentages de répondants donnant une réponse favorable et ceux donnant une réponse défavorable. Toutes les données des enquêtes de conjoncture auprès des ménages sont donc présentées sous la forme de séries temporelles de soldes brutes ou corrigées des variations saisonnières. Peu de séries sont présentées sous la forme d'indice, et quand c'est le cas, ces séries ont été converties en indice par les pays avant leurs soumissions de leurs données auprès de l'OCDE.&lt;p /&gt;&lt;a href=mailto"stat.contact@oecd.org"&gt;&lt;Contact pour les statistiques de l'OCDE&gt;&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;&lt;/a&gt;</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES" version="4.0" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES@DF_CSBAR" agencyID="OECD.SDD.STES" version="4.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,UNIT_MEASURE=GR,METHODOLOGY=H</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_UNIT_MEASURE:TRANSFORMATION,ADJUSTMENT,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Consumer barometer</common:Name>
+        <common:Name xml:lang="fr">Baromètre des ménages</common:Name>
+        <common:Description xml:lang="en">The OECD Consumer Barometer corresponds to the monthly growth rate of the normalised consumer confidence indicator (CCI), computed as the average of: i)  financial situation over the past 12 months , ii)  financial situation over the next 12 months, iii) the general economic situation over the next 12 months and iv) major purchases over the 12 next months. Normalisation is achieved by subtracting from the CCI its mean and dividing by its standard deviation. A value of 100 is added for rescaling purposes. In this form, an OECD Consumer Barometer reading greater than 100 signals a boost in consumer confidence towards the future, indicating an attitude to spend more on major purchases in the coming year, complemented by a modest propensity to save. Conversely, values below 100 indicate a pessimistic approach towards future developments in the economy, valuing saving over consumption. &lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;OECD statistics contact&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Statistics and Data Directorate&lt;/a&gt;</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES" version="4.0" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES@DF_FINMARK" agencyID="OECD.SDD.STES" version="4.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>MEASURE</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,METHODOLOGY=N</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA=AUS,FREQ=M,UNIT_MEASURE=PA</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_UNIT_MEASURE:UNIT_MEASURE,BASE_PER,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Financial market</common:Name>
+        <common:Name xml:lang="fr">Marché financier</common:Name>
+        <common:Description xml:lang="en">Financial Indicators aim to capture in quantitative terms an important but heterogeneous and fast evolving area. Key factors driving this change are:  globalisation of the financial markets;  maturing of national financial markets and therefore the structure of these markets required to service their needs;  increased sophistication of the actors in these markets;  rapid technological change; and evolving regulatory frameworks. Financial institutions react and adapt to these conditions by changing their strategies; by specialising, by diversifying or concentrating their activities, and by extending through mergers and acquisitions. As a consequence, there is almost constant evolution in the institutional structures in which financial markets operate.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;OECD statistics contact&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Statistics and Data Directorate&lt;/a&gt;</common:Description>
+        <common:Description xml:lang="fr">Les indicateurs financiers visent à capturer, en terme quantitatif, un secteur important, hétérogène et en évolution rapide. Les facteurs clés de ce changement sont :  la mondialisation des marchés financiers ;  la maturité des marchés financiers nationaux et leur structure nécessaire pour satisfaire leurs besoins ;  une plus grande sophistication des acteurs sur ces marchés ;  une évolution technologique rapide ; et des cadres de réglementation en évolution. Les institutions financières réagissent et s'adaptent à ces conditions en changeant leurs stratégies ; par la spécialisation, la diversification ou la concentration de leurs activités, et par extension par des fusions et des acquisitions. Par conséquent, les marchés financiers fonctionnent dans des structures institutionnelles en évolution permanente.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;Contact pour les statistiques de l'OCDE&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Direction des statistiques et des données&lt;/a&gt;</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES" version="4.0" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES@DF_INDSERV" agencyID="OECD.SDD.STES" version="4.3" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,METHODOLOGY=N</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>MEASURE=PRVM,FREQ=M</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_UNIT_MEASURE:UNIT_MEASURE,BASE_PER,ADJUSTMENT,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>10000</common:AnnotationTitle>
+            <common:AnnotationType>MAX_TABLE_DATA</common:AnnotationType>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Production, sales, work started and orders</common:Name>
+        <common:Name xml:lang="fr">Production, ventes, mise en chantiers et commandes</common:Name>
+        <common:Description xml:lang="en">The Production and Sales dataset contains industrial statistics on four separate subjects: Production; Sales; Orders; and Work started. The data series presented within these subjects have been chosen as the most relevant industrial statistics for which comparable data across countries is available. For Production, data comprise Indices of industrial production (IIP) for total industry, manufacturing, energy and crude petroleum; and further disaggregation of manufacturing production for intermediate goods and for investment goods and crude steel. For others, they comprise retail trade and registration of passenger cars; and permits issued and work started for dwellings. Considerable effort has been made to ensure that the data are internationally comparable across all countries presented, coverage for as many countries as possible, and that all the subjects have reasonable length of time-series to assist analysis. Most data are available monthly and are presented as an index (where the year 2010 is the base year) or as a level depending on which measure is seen as the most appropriate and/or useful in the economic analysis context. Due to differences in statistical or economic environment at country level, however, availability of data varies from one country to another. &lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;OECD statistics contact&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Statistics and Data Directorate&lt;/a&gt;</common:Description>
+        <common:Description xml:lang="fr">L'ensemble de données Production et Ventes contient des statistiques industrielles pour 4 sujets distincts: la Production, les Ventes, les Commandes et les Mises en chantiers. Les séries de données présentées au sein de ces sujets on été choisies comme les statistiques industrielles les plus pertinentes pour lesquelles des données comparables entre les pays sont disponibles. Pour la Production, les données comprennent l'Indice de Production Industrielle (IPI) pour l'ensemble des industries, l'ensemble des secteurs manufacturiers, l'énergie, le pétrole brut, ainsi qu'une désagrégation plus détaillée de la production dans les secteurs manufacturiers pour les biens intermédiaires, les biens d'investissement et l'acier brut. Pour les autres sujets, sont inclus le commerce de détail, les immatriculations de voitures de tourisme, ainsi que les permis de construire et mises en chantiers de logements. Des efforts importants ont été faits pour s'assurer que les données sont comparables pour tous les pays présentés, pour couvrir le plus de pays possible, et pour que tous les sujets présentent des séries temporelles suffisamment longues pour faciliter l'analyse. La plupart des données sont disponibles mensuellement et sont présentées sous forme d'indices (avec 2010 pour année de référence) ou en niveau, selon que l'une ou l'autre mesure est considérée comme la plus appropriée et utile dans le contexte de l'analyse économique. Cependant, en raison de différences dans l'environnement statistique ou économique du pays, la disponibilité des données est différente d'un pays à l'autre.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;Contact pour les statistiques de l'OCDE&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Direction des statistiques et des données&lt;/a&gt;</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES" version="4.3" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES@DF_MONAGG" agencyID="OECD.SDD.STES" version="4.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>MEASURE</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW_SECTION</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,METHODOLOGY=N</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>FREQ=M,UNIT_MEASURE=IX,ADJUSTMENT=Y</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_UNIT_MEASURE:UNIT_MEASURE,BASE_PER,ADJUSTMENT,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Monetary aggregates</common:Name>
+        <common:Name xml:lang="fr">Statistiques monétaires</common:Name>
+        <common:Description xml:lang="en">Monetary aggregates measure the amount of money circulating in an economy. National series are loaded as national currency stock series. Mostly, these are end-of-month. A few countries compile data more frequently e.g. weekly which enables them to calculate “average for the month” data. Series are also presented in index form, calculated by OECD. Monetary aggregates are always expressed in current price (“nominal” terms) because the amount of money required by an economy reflects current levels of economic activity and price. Here they are presented both as stock series in national currency and as indices in the OECD standard base year. There are many monetary aggregates. Statistically, they are items in the balance sheet of the banking system. They may be taken from either side (since credit series, which are banking assets, are sometimes labeled monetary aggregates) but are normally taken from the liabilities side. In the balance sheet the liabilities items are ordered, starting with very narrow definitions of money (such as notes and coin) and gradually widening through various types of bank accounts (e.g. sight deposits, term deposits) to very board items which include sophisticated products like financial derivatives. In other words, narrow money measures cover highly liquid forms of money (money as a means of exchange) while broad money includes the less liquid forms (money as a store of value). There were no internationally recognised standards for compiling monetary aggregates until the IMF published its Monetary and Financial Statistics Manual in 2000 (&lt;a href="http://www.imf.org/external/pubs/ft/mfs/manual/index.htm"&gt;Monetary and Financial Statistics Manua&lt;/a&gt;). Cross-country comparability suffered as a result. Now, notably, the European Central Bank’s framework for constructing Euro area monetary aggregates is consistent with IMF principles and non-euro EU countries are also required to report data to ECB according to the framework as are EU candidate countries as part of their application process. A useful IMF link for national methodologies is &lt;a href="http://dsbb.imf.org/Applications/web/sddscountrylist/"&gt;IMF methodologies&lt;/a&gt;.  Here is used a general definition of narrow money – M1 is: currency i.e. banknotes and coins, plus overnight deposits. M2 is: the sum of M1, deposits with an agreed maturity of up to two years and deposits redeemable at notice of up to three months. And broad money – M3 is: the sum of M2, repurchase agreements, money market fund shares/units and debt securities up to two years.&lt;p /&gt;The narrow and broad money indices are calculated by OECD from the national stock series. Country indices are calculated by first estimating period averages where the country only supplies end-of-period stock data. The figure for the end of the previous period is taken as the opening stock for the current period. The arithmetic average of the two is the estimate for the period average. These, or true monthly averages where available, are divided by the annual average of the monthly data in the base period to obtain the index.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;OECD statistics contact&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Statistics and Data Directorate&lt;/a&gt;</common:Description>
+        <common:Description xml:lang="fr">Le montant des agrégats monétaires est recueilli par les banques centrales sur la base d'enquêtes effectuées auprès des institutions monétaires et financières.&lt;p /&gt;Le montant des agrégats monetaires est une donnée mensuelle et cumulative en terme de stock.&lt;p /&gt;&lt;a href=mailto:stat.contact@oecd.org&gt;Contact pour les statistiques de l'OCDE&lt;/a&gt;&lt;p /&gt;&lt;a href="http://www.oecd.org/sdd"&gt;Direction des statistiques et des données&lt;/a&gt;</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES" version="4.0" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+      <structure:Dataflow id="DSD_STES_REVISIONS@DF_STES_REVISIONS" agencyID="OECD.SDD.STES" version="4.0" isFinal="true">
+        <common:Annotations>
+          <common:Annotation>
+            <common:AnnotationType>NonProductionDataflow</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">true</common:AnnotationText>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>TIME_PERIOD</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>EDITION</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_COLUMN</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>MEASURE</common:AnnotationTitle>
+            <common:AnnotationType>LAYOUT_ROW_SECTION</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>UNIT_MULT=0,OBS_STATUS=A,ACTIVITY=_Z,ADJUSTMENT=Y</common:AnnotationTitle>
+            <common:AnnotationType>NOT_DISPLAYED</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation id="@SDMX">
+            <common:AnnotationTitle>REF_AREA=FRA,FREQ=M,LASTNPERIODS=6</common:AnnotationTitle>
+            <common:AnnotationType>DEFAULT</common:AnnotationType>
+          </common:Annotation>
+          <common:Annotation>
+            <common:AnnotationTitle>COMBINED_MEASURE:MEASURE,ACTIVITY;COMBINED_UNIT_MEASURE:UNIT_MEASURE,BASE_PER,UNIT_MULT</common:AnnotationTitle>
+            <common:AnnotationType>COMBINED_CONCEPTS</common:AnnotationType>
+            <common:AnnotationText xml:lang="en">COMBINED_MEASURE:Measure;COMBINED_UNIT_MEASURE:Unit of measure</common:AnnotationText>
+            <common:AnnotationText xml:lang="fr">COMBINED_MEASURE:Mesure;COMBINED_UNIT_MEASURE:Unité de mesure</common:AnnotationText>
+          </common:Annotation>
+        </common:Annotations>
+        <common:Name xml:lang="en">Short-term economic statistics revisions</common:Name>
+        <common:Name xml:lang="fr">Révisions des statistiques économiques à court-terme</common:Name>
+        <common:Description xml:lang="en">Access monthly data snapshots of published short term economic statistics and observe the revisions made to key economic variables.&lt;p /&gt;Having access to originally published data enables analysts to test the likely effectiveness of econometric models in simulated real-time, in particular models used for forecasting. It also provides the opportunity to perform revisions analysis - to study the magnitude and direction of subsequent revisions to published statistics. Revisions to time series published in subsequent editions of the Main Economic Indicators publication may be due to practices employed both by the national statistical institutes providing the data and the OECD.</common:Description>
+        <common:Description xml:lang="fr">Accédez aux données mensuelles des statistiques économiques à court terme publiées et observez les révisions apportées aux variables économiques clés.&lt;p /&gt;L'accès aux données publiées à l'origine permet aux analystes de tester, en quasi temps réel,  l'efficacité probable des modèles économétriques, et en particulier des modèles de prévisions. Cela permet également d'effectuer une analyse des révisions, c'est-à-dire d'étudier l'ampleur et la direction des révisions ultérieures des statistiques publiées. Les révisions des séries temporelles, publiées dans les éditions successives des « Principaux indicateurs économiques », peuvent être dues aux pratiques employées à la fois par les instituts nationaux de statistique qui fournissent les données et par l'OCDE.</common:Description>
+        <structure:Structure>
+          <Ref id="DSD_STES_REVISIONS" version="4.0" agencyID="OECD.SDD.STES" package="datastructure" class="DataStructure" />
+        </structure:Structure>
+      </structure:Dataflow>
+    </structure:Dataflows>
+  </message:Structures>
+</message:Structure>

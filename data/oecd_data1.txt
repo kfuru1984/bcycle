@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 31, in <module>
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+Core CPI [404]
+NoResultsFound
+
+Unemployment [200]
+{"meta":{"schema":"https://raw.githubusercontent.com/sdmx-twg/sdmx-json/master/data-message/tools/schemas/2.0.0/sdmx-json-data-schema.json","id":"IREF017533","prepared":"2026-05-18T13:33:52Z","test":false,"contentLanguages":["en","en-US"],"sender":{"id":"Disseminate_Final_DMZ","name":"unknown","names":{"en-US":"unknown"}}},"data":{"dataSets":[{"structure":0,"action":"Information","links":[{"urn":"urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=OECD.SDD.TPS:DSD_LFS(1.0)","rel":"DataStructure"}],"annotations":[0,1,2,3,4,5,6,7],"dimensionGroupAttributes":{"0:0:0:~:~:~:~:~:~:~":[8],"~:0:~:~:~:~:~:~:~:~":[8]},"series":{"0:0:0:0:0:0:0:0:0":{"attributes":[null,0,0],"annotations":[],"observations":{"0":[7.336185,0]}},"0:0:0:0:0:1:0:0:0":{"attributes":[null,0,0],"annotations":[],"observations":{"0":[6.611603,0]}},"0:0:0:0:0:1:1:0:1":{"attributes":[null,0,0],"annotations":[],"observations":{"1":[4.1,0]}},"0:0:0:0:0:1:1:0:0":{"attributes":[null,0,0],"annotations":[],"observations":{"0":[3.466667,0]}},"0:0:0:0:1:1:2:0:0":{"attributes":[null,0,0],"annotations":[],"observations":{"0":[2.558375,0]}},"0:0:0:0:1:2:0:0:0":{"attributes":[null,0,0],"annotations":[],"observations":{"0":[7.10056
+
+STES flows [200]

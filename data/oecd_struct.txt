@@ -1,0 +1,5 @@
+LFS structure status: 406
+acceptable: application/vnd.sdmx.structure+xml; version=2.1; charset=utf-8, application/vnd.sdmx.structure+json; version=1.0; charset=utf-8, application/vnd.sdmx.structure+json; version=1.0.0-wd; charset=utf-8, text/json; charset=utf-8, application/json; charset=utf-8, application/rdf+xml; charset=u
+
+Dataflows status: 406
+acceptable: application/vnd.sdmx.structure+xml; version=2.1; charset=utf-8, application/vnd.sdmx.structure+json; version=1.0; charset=utf-8, application/vnd.sdmx.structure+json; version=1.0.0-wd; charset=utf-8, text/json; charset=utf-8, application/json; charset=utf-8, application/rdf+xml; charset=u

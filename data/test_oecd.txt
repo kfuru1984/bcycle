@@ -1,0 +1,7 @@
+is_available: True
+
+--- Core CPI ---
+Traceback (most recent call last):
+  File "G:\�}�C�h���C�u\git\bcycle\scripts\_test_oecd.py", line 17, in <module>
+    print(f"  coverage: {s.index[0].strftime('%Y-%m')} \u2013 {s.index[-1].strftime('%Y-%m')}  ({len(s)} obs)")
+UnicodeEncodeError: 'cp932' codec can't encode character '\u2013' in position 20: illegal multibyte sequence

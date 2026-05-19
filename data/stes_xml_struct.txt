@@ -1,0 +1,16 @@
+Root tag: {http://www.sdmx.org/resources/sdmxml/schemas/v2_1/message}Structure
+
+Structure {}
+  Header {}
+    ID {}
+    Test {}
+    Prepared {}
+    Sender {'id': 'Unknown'}
+    Receiver {'id': 'Unknown'}
+  Structures {}
+    Dataflows {}
+      Dataflow {'id': 'DSD_KEI@DF_KEI', 'agencyID': 'OECD.SDD.STES', 'version': '4.0', 'isFinal': 'true'}
+      Dataflow {'id': 'DSD_STES@DF_BTS', 'agencyID': 'OECD.SDD.STES', 'version': '4.0', 'isFinal': 'true'}
+      Dataflow {'id': 'DSD_STES@DF_CLI', 'agencyID': 'OECD.SDD.STES', 'version': '4.1', 'isFinal': 'true'}
+      Dataflow {'id': 'DSD_STES@DF_CS', 'agencyID': 'OECD.SDD.STES', 'version': '4.0', 'isFinal': 'true'}
+      Dataflow {'id': 'DSD_STES@DF_CSBAR', 'agencyID': 'OECD.SDD.STES', 'version': '4.0', 'isFinal': 'true'}

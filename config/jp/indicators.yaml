@@ -1,0 +1,246 @@
+# =============================================================
+# 日本景気循環モデル - MVP指標定義
+# =============================================================
+# Last updated: 2026-05-10
+#
+# 設計方針:
+#   - 全指標は月次に揃える(短観などの四半期は v2 で別経路)
+#   - 各指標は複数ソース(e-Stat / FRED / Bloomberg)を持ち、
+#     adapter 層で `prefer` 指定により切替
+#   - e-Stat の stats_data_id は公表ごとに変わるため、stats_code
+#     (調査単位の安定ID)を保持し、API で動的に最新IDを引く設計を推奨
+#   - "TBD" / "要確認" は Day 1 で各自実機検証して埋める箇所
+#
+# transform 種別:
+#   - level     : 値そのまま(失業率、DI、金利など)
+#   - yoy_pct   : 前年同月比(%)
+#   - mom_pct   : 前月比(%)
+#   - derived   : 計算値(formula 参照)
+# =============================================================
+
+meta:
+  country: JP
+  frequency: monthly
+  cycle_definition: "growth_cycle"  # 成長サイクル(deviation)
+  rolling_z_window_years: 10
+  start_date: "1985-01-01"          # 利用可能性に応じて指標ごとに切詰め
+
+indicators:
+
+  # ============================================================
+  # 1. 生産 (Production)
+  # ============================================================
+  - id: ip_yoy
+    name_ja: 鉱工業生産指数(前年同月比、季調済)
+    category: production
+    phase: coincident
+    frequency: monthly
+    transform: level         # 主ソース JPNPRINTO01GYSAM は前年比(%)を直接提供するため no-op
+    prefer: fred_oecd        # OECD/FRED が最新(1956-01～現在); 毎月更新
+    sources:
+      meti:                  # 実装保留: www.meti.go.jp がネットワーク到達不可(要VPN/手動)
+        ref_url: "https://www.meti.go.jp/statistics/tyo/iip/result-1.html"
+        # ✓ METI 前年比(%) → transform: level で正しく動作
+      fred_oecd:             # OECD: 建設除く鉱工業生産, 前年比 SA 月次, 1956-01～現在
+        series_id: "JPNPRINTO01GYSAM"
+        # ✓ 既に前年比(%) → transform: level で正しく動作
+      bloomberg:
+        ticker: "JNIPYOY Index"
+    notes: "ヘッドライン生産。JPNPRINTO01GYSAM(OECD)で2026-03まで取得可能"
+
+  # ============================================================
+  # 2-3. 労働 (Labor)
+  # ============================================================
+  - id: unemployment_rate
+    name_ja: 完全失業率(季調値、%)
+    category: labor
+    phase: lagging
+    frequency: monthly
+    transform: level
+    prefer: fred                           # e-Stat は原数値のみ; FRED で SA系列を使用
+    sources:
+      estat:
+        stats_code: "00200531"           # 総務省 労働力調査
+        stats_data_id: "0002060004"      # 月次 1968年1月～ (非季節調整値)
+        table_name_contains:
+          - "完全失業率"
+          - "1968年"
+        filters:
+          cat02: "0"     # 総数
+          cat03: "08"    # 完全失業者（率表示）
+          cat04: "00"    # 15歳以上
+          area: "00000"  # 全国
+        ref_url: "https://www.stat.go.jp/data/roudou/index.html"
+      fred:
+        series_id: "LRUN64TTJPM156S"     # ILO harmonized: 15-64歳 SA, 1970年～
+      bloomberg:
+        ticker: "JNUE Index"             # 要確認
+    notes: "遅行指標。底打ち/天井のシグナル価値高い"
+
+  - id: jobs_to_applicants_ratio
+    name_ja: 有効求人倍率(除学卒、季調済)
+    category: labor
+    phase: coincident
+    frequency: monthly
+    transform: level
+    prefer: estat
+    sources:
+      estat:
+        # 内閣府 景気動向指数 個別系列の数値 (stats_data_id固定)
+        # C9:(一致)有効求人倍率(除学卒) 単位:倍, 1975年1月～現在
+        stats_data_id: "0003446462"
+        filters:
+          cat01: "2090"   # C9 有効求人倍率(除学卒)
+          tab: "200"      # 系列の数値
+      bloomberg:
+        ticker: "JNJVRATE Index"
+    notes: "内閣府景気動向指数C9経由。MHLW一般職業紹介状況のSA値(除学卒)。1975-01～現在"
+
+  # ============================================================
+  # 4. 消費 (Consumption)
+  # ============================================================
+  - id: consumer_confidence
+    name_ja: 消費者態度指数(一般世帯、季調)
+    category: consumption
+    phase: leading
+    frequency: monthly
+    transform: level
+    sources:
+      cao:                               # 内閣府 消費動向調査
+        ref_url: "https://www.esri.cao.go.jp/jp/stat/shouhi/shouhi.html"
+      fred:
+        series_id: "CSCICP03JPM665S"     # 要確認
+      bloomberg:
+        ticker: "JCOMACF Index"          # 要確認
+    notes: "消費の先行指標"
+
+  # ============================================================
+  # 5. 住宅 (Housing)
+  # ============================================================
+  - id: housing_starts_yoy
+    name_ja: 新設住宅着工戸数(前年同月比)
+    category: housing
+    phase: leading
+    frequency: monthly
+    transform: yoy_pct
+    sources:
+      estat:
+        stats_code: "00600120"           # 国交省 建築着工統計
+        stats_data_id: "0003114496"      # 新設住宅着工 2010年11月～ (168ヶ月)
+        table_name_contains:
+          - "新設住宅"
+        filters:
+          tab: "19"    # 戸数
+          cat01: "11"  # 計(建て主別)
+          cat02: "11"  # 計(利用関係別)
+          cat03: "11"  # 計(資金別)
+          area: "00000" # 全国
+        ref_url: "https://www.mlit.go.jp/sogoseisaku/jouhouka/sosei_jouhouka_tk4_000002.html"
+      bloomberg:
+        ticker: "JNHSYOY Index"          # 要確認
+    notes: "金利感応度高い。サイクル先行性"
+
+  # ============================================================
+  # 6. 外需 (External Demand)
+  # ============================================================
+  - id: exports_yoy
+    name_ja: 輸出金額(前年同月比、%)
+    category: external
+    phase: coincident
+    frequency: monthly
+    transform: yoy_pct
+    sources:
+      mof:                               # 財務省貿易統計
+        ref_url: "https://www.customs.go.jp/toukei/srch/index.htm"
+      fred:
+        series_id: "XTEXVA01JPM664S"     # 要確認
+      bloomberg:
+        ticker: "JNTBALEX Index"         # 要確認
+    notes: "半導体・自動車サイクル代理。韓台と相関"
+
+  # ============================================================
+  # 7. 物価 (Inflation)
+  # ============================================================
+  - id: core_cpi_yoy
+    name_ja: コアCPI(生鮮食品除く総合、前年同月比)
+    category: inflation
+    phase: lagging
+    frequency: monthly
+    transform: yoy_pct
+    sources:
+      estat:
+        stats_code: "00200573"           # 総務省 消費者物価指数
+        stats_data_id: "0003427113"      # 2020年基準 長期時系列
+        table_name_contains:
+          - "2020年基準"
+        filters:
+          cat01: "0161"    # 生鮮食品を除く総合
+          tab: "1"         # 指数
+          area: "00000"    # 全国
+      fred:
+        series_id: "JPNCPIALLMINMEI"     # 要確認
+      bloomberg:
+        ticker: "JNCPIYOY Index"         # 要確認
+    notes: "中銀スタンス判定の核"
+
+  # ============================================================
+  # 8-9. 金融 (Financial Conditions)
+  # ============================================================
+  # ── 中間指標: 直接モデルに使わず derived 計算の素材 ──────────────
+  - id: tona_rate
+    name_ja: 無担保コールレート翌日物(%)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "IRSTCI01JPM156N"   # OECD: Japan overnight call rate, 1985-07～
+    notes: "real_policy_rate / yc_10y2y の計算素材。composite には入れない(weight=0)"
+
+  - id: jgb_10y
+    name_ja: 日本国債10年利回り(%)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "IRLTLT01JPM156N"   # OECD: Japan 10Y JGB yield, 1989-01～
+    notes: "yc_10y2y の計算素材。composite には入れない(weight=0)"
+
+  - id: real_policy_rate
+    name_ja: 実質政策金利(TONA - コアCPI YoY)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: derived
+    formula: "tona_rate - core_cpi_yoy"
+    notes: "Taylor Rule 乖離の代理。マイナスならビハインド。1990-01～"
+
+  - id: yc_10y2y
+    name_ja: JGB イールドカーブ勾配(10Y - TONA、%)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: derived
+    formula: "jgb_10y - tona_rate"
+    notes: "2Y取得困難のため翌日物で代替。逆転でリセッション先行シグナル。1989-01～"
+
+  # ============================================================
+  # 10. 信頼感 (Sentiment)
+  # ============================================================
+  - id: economy_watchers_current
+    name_ja: 景気ウォッチャー・現状判断DI(季調)
+    category: sentiment
+    phase: coincident
+    frequency: monthly
+    transform: level
+    sources:
+      cao:
+        ref_url: "https://www5.cao.go.jp/keiki/index.html"
+      bloomberg:
+        ticker: "JNCWWDIC Index"         # 要確認
+    notes: "短観(四半期)の月次代替。現場感ある"

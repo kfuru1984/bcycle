@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 976, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 356, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 35, in <module>
+  File "C:\Users\11thh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\requests\models.py", line 980, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+CPI KOR.M...... [200]
+  [0] REF_AREA: ['KOR']
+  [1] FREQ: ['M']
+  [2] METHODOLOGY: ['N']
+  [3] MEASURE: ['CPI']
+  [4] UNIT_MEASURE: ['PA']
+  [5] EXPENDITURE: ['_TXCP01_NRG']
+  [6] ADJUSTMENT: ['N']
+  [7] TRANSFORMATION: ['GY']
+  OBS TIME_PERIOD: ['2023-01', '2023-02', '2023-03']...
+Series count: 1
+  key=0:0:0:0:0:0:0:0 obs=[('0', [3.993409, 0]), ('1', [3.87103, 0])]
+
+STES [200]

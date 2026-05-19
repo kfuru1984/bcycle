@@ -1,0 +1,3 @@
+JPNPROINDMISMEI: ERROR Bad Request.  The value for variable api_key is not a 32 character alpha-numeric lower-case string.  Read https://fred.stlouisfed.org/docs/api/api_key.html for more information.
+
+LRUN64TTJPM156S: ERROR Bad Request.  The value for variable api_key is not a 32 character alpha-numeric lower-case string.  Read https://fred.stlouisfed.org/docs/api/api_key.html for more information.

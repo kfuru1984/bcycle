@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python scripts/resolve_estat_ids.py --list-tables 00450011)",
+      "Bash(python scripts/01_jp_mvp.py)",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import os; os.remove\\('data/_tmp_final.txt'\\); print\\('ok'\\)\")",
+      "PowerShell(Remove-Item \"G:\\\\�}�C�h���C�u\\\\git\\\\bcycle\\\\config\\\\indicators.yaml\" -Confirm:$false)",
+      "PowerShell(Remove-Item \"G:\\\\�}�C�h���C�u\\\\git\\\\bcycle\\\\config\\\\settings.yaml\" -Confirm:$false)",
+      "Bash(grep -qE \"\\\\[200\\\\]|\\\\[ERR\\\\]|\\\\\\\\[4[0-9][0-9]\\\\\\\\]\" \"C:/Users/11thh/AppData/Local/Temp/claude/G---------git-bcycle/d9615b4f-8144-42ef-a98b-b7c24be45297/tasks/bir7p7wuv.output\")",
+      "Bash([ -s \"$f\" ])",
+      "Bash(python scripts/run_cycle.py --country kr)",
+      "Bash(python scripts/run_cycle.py --signals)",
+      "Bash(python -c \"import seaborn; print\\('seaborn', seaborn.__version__\\); import scipy; print\\('scipy', scipy.__version__\\)\")",
+      "Bash(pip install *)",
+      "Bash(python -c \"import seaborn, scipy; print\\('OK seaborn', seaborn.__version__, 'scipy', scipy.__version__\\)\")",
+      "Bash(python scripts/analysis_a.py --country jp)",
+      "Bash(python scripts/analysis_a.py --country us)",
+      "Bash(python scripts/generate_report.py)"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+# =============================================================
+# サイクルモデル パラメータ (KR)
+# =============================================================
+
+normalize:
+  rolling_window_months: 120
+  min_periods_months: 60
+  winsorize_lower: 0.01
+  winsorize_upper: 0.99
+  use_rolling_winsorize: false
+
+composite:
+  method: percentile_mean
+  min_indicator_frac: 0.5
+
+  weights:
+    # 取得成功した指標のみ有効 (等加重)
+    ip_yoy: 1.0
+    exports_yoy: 1.0
+    core_cpi_yoy: 1.0
+    consumer_confidence: 1.0
+    real_policy_rate: 1.0
+    yc_10y2y: 1.0
+    # KOR SA 月次データ OECD/FRED ともに不在 → 0でスキップ
+    unemployment_rate: 0.0
+    # 中間指標 (derived 計算の素材; composite に入れない)
+    policy_rate: 0.0
+    kr_10y: 0.0
+
+  invert_sign: []
+
+momentum:
+  lookback_months: 3
+
+stage_classification:
+  level_low: 33.0
+  level_high: 60.0
+  momentum_threshold: 0.0
+  hysteresis_periods: 2

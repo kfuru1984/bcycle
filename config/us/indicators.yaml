@@ -1,0 +1,152 @@
+# =============================================================
+# 米国景気循環モデル - 指標定義
+# =============================================================
+# 全指標 FRED ソース。transform: yoy_pct は fredapi 取得後に
+# pct_change(periods=12)*100 で計算する。
+# =============================================================
+
+meta:
+  country: US
+  frequency: monthly
+  cycle_definition: "growth_cycle"
+  rolling_z_window_years: 10
+  start_date: "1960-01-01"
+
+indicators:
+
+  # ============================================================
+  # 1. 生産 (Production)
+  # ============================================================
+  - id: ip_yoy
+    name_en: Industrial Production YoY (%)
+    category: production
+    phase: coincident
+    frequency: monthly
+    transform: yoy_pct
+    prefer: fred
+    sources:
+      fred:
+        series_id: "INDPRO"    # Fed: Industrial Production Index SA, 1919-01~
+    notes: "ヘッドライン生産。水準指数のため yoy_pct 変換を適用"
+
+  # ============================================================
+  # 2-3. 労働 (Labor)
+  # ============================================================
+  - id: unemployment_rate
+    name_en: Unemployment Rate SA (%)
+    category: labor
+    phase: lagging
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "UNRATE"    # BLS: Civilian Unemployment Rate SA, 1948-01~
+    notes: "遅行指標。invert_sign で高い=悪いを逆転"
+
+  - id: nfp_yoy
+    name_en: Nonfarm Payrolls YoY (%)
+    category: labor
+    phase: coincident
+    frequency: monthly
+    transform: yoy_pct
+    prefer: fred
+    sources:
+      fred:
+        series_id: "PAYEMS"    # BLS: Total Nonfarm Payrolls SA, 1939-01~
+    notes: "雇用の勢い。労働需要の代理変数"
+
+  # ============================================================
+  # 4. 住宅 (Housing)
+  # ============================================================
+  - id: housing_starts_yoy
+    name_en: Housing Starts YoY (%)
+    category: housing
+    phase: leading
+    frequency: monthly
+    transform: yoy_pct
+    prefer: fred
+    sources:
+      fred:
+        series_id: "HOUST"     # Census: Housing Starts SAAR, 1959-01~
+    notes: "金利感応度高い先行指標"
+
+  # ============================================================
+  # 5. 物価 (Inflation)
+  # ============================================================
+  - id: core_cpi_yoy
+    name_en: Core CPI YoY (%, ex Food & Energy)
+    category: inflation
+    phase: lagging
+    frequency: monthly
+    transform: yoy_pct
+    prefer: fred
+    sources:
+      fred:
+        series_id: "CPILFESL"  # BLS: CPI ex Food & Energy SA, 1957-02~
+    notes: "コアインフレ。real_policy_rate の計算素材も兼ねる"
+
+  # ============================================================
+  # 6-8. 金融 (Financial Conditions)
+  # ============================================================
+  # ── 中間指標: derived 計算の素材 ──────────────────────────────
+  - id: fedfunds
+    name_en: Federal Funds Rate (%)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "FEDFUNDS"  # Fed: Effective Federal Funds Rate, 1954-07~
+    notes: "real_policy_rate の計算素材。composite には入れない(weight=0)"
+
+  - id: real_policy_rate
+    name_en: Real Policy Rate (FF Rate - Core CPI YoY)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: derived
+    formula: "fedfunds - core_cpi_yoy"
+    notes: "Taylor Rule 乖離の代理。マイナスなら緩和的"
+
+  - id: yc_10y2y
+    name_en: Yield Curve Slope (10Y - 2Y Treasury, %)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "T10Y2Y"    # Fed: 10Y minus 2Y Treasury Constant Maturity, 1976-06~
+    notes: "直接取得(derived 不要)。逆転でリセッション先行シグナル"
+
+  # ============================================================
+  # 9. 消費者信頼感 (Consumer Sentiment)
+  # ============================================================
+  - id: consumer_confidence
+    name_en: University of Michigan Consumer Sentiment
+    category: consumption
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "UMCSENT"   # Univ. of Michigan: Consumer Sentiment, 1952-11~
+
+  # ============================================================
+  # 10. 外需 (External Demand)
+  # ============================================================
+  - id: exports_yoy
+    name_en: Total Exports YoY (%, OECD MEI)
+    category: external
+    phase: coincident
+    frequency: monthly
+    transform: yoy_pct
+    prefer: fred
+    sources:
+      fred:
+        series_id: "EXUSATOTPRSMEI"  # OECD MEI: US Total Exports (EXPGSC96 は2017-04廃止)

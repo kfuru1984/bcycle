@@ -1,0 +1,43 @@
+# =============================================================
+# サイクルモデル パラメータ (JP)
+# =============================================================
+
+normalize:
+  rolling_window_months: 120        # 10年
+  min_periods_months: 60            # 5年(これ未満は NaN)
+  winsorize_lower: 0.01
+  winsorize_upper: 0.99
+  use_rolling_winsorize: false      # true で構造変化追従(MVPは false)
+
+composite:
+  method: percentile_mean           # or "z_mean"
+  min_indicator_frac: 0.5           # 有効指標が全体の50%未満の月はNaN
+
+  weights:
+    # 実装済み7指標 (等加重)
+    ip_yoy: 1.0
+    unemployment_rate: 1.0
+    housing_starts_yoy: 1.0
+    core_cpi_yoy: 1.0
+    jobs_to_applicants_ratio: 1.0
+    real_policy_rate: 1.0
+    yc_10y2y: 1.0
+    # 中間指標 (derived 計算の素材; composite に入れない)
+    tona_rate: 0.0
+    jgb_10y: 0.0
+    # 未実装 → 0
+    consumer_confidence: 0.0
+    exports_yoy: 0.0
+    economy_watchers_current: 0.0
+
+  invert_sign:
+    - unemployment_rate
+
+momentum:
+  lookback_months: 3
+
+stage_classification:
+  level_low: 33.0
+  level_high: 60.0
+  momentum_threshold: 0.0
+  hysteresis_periods: 2

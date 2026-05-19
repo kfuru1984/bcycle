@@ -1,0 +1,14 @@
+LFS DSD status: 200
+Dimensions: 9
+  pos=0 id=REF_AREA
+  pos=1 id=MEASURE
+  pos=2 id=UNIT_MEASURE
+  pos=3 id=TRANSFORMATION
+  pos=4 id=ADJUSTMENT
+  pos=5 id=SEX
+  pos=6 id=AGE
+  pos=7 id=ACTIVITY
+  pos=8 id=FREQ
+
+Dataflows status: 404
+Could not find requested structures

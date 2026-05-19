@@ -1,0 +1,18 @@
+DF_CS KOR [422]
+  Not enough key values in query, expecting 9 got 8
+DF_KEI KOR [200]
+  Series dims:
+    [0] REF_AREA: ['KOR']
+    [1] FREQ: ['M', 'Q']
+    [2] MEASURE: ['TOCAPA', 'CCICP', 'BCICP', 'PRVM', 'EX', 'IM', 'CA_GDP', 'ULC']
+    [3] UNIT_MEASURE: ['GR', 'PA', 'PB', 'PS', 'PT_LF', 'PT_B1GQ', 'IX', 'USD']
+    [4] ACTIVITY: ['F', 'BTE', '_T', '_Z', 'C', 'G47', 'G45', 'G']
+    [5] ADJUSTMENT: ['Y', '_Z', 'RT', 'AA']
+    [6] TRANSFORMATION: ['GY', 'G1', '_Z']
+    OBS TIME_PERIOD: ['2023-01', '2023-03', '2023-Q1', '2023-02']
+  Series count: 89
+  key=0:0:3:0:1:0:0  obs=[('1', [-7.5043630016, 0]), ('3', [-10.4385964869, 0])]
+  key=0:0:3:0:1:0:1  obs=[('0', [2.3856858861, 0])]
+
+DF_INDSERV KOR [422]
+  Not enough key values in query, expecting 9 got 8

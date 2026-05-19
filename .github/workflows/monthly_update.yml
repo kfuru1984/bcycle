@@ -1,0 +1,75 @@
+name: Monthly Business Cycle Update
+
+on:
+  schedule:
+    - cron: '0 9 25 * *'   # 毎月25日 09:00 UTC (日本時間 18:00)
+  workflow_dispatch:         # 手動実行
+
+permissions:
+  contents: write            # git push に必要
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    env:
+      ESTAT_APP_ID: ${{ secrets.ESTAT_APP_ID }}
+      FRED_API_KEY:  ${{ secrets.FRED_API_KEY }}
+      ECOS_API_KEY:  ${{ secrets.ECOS_API_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install Japanese fonts (for matplotlib)
+        run: sudo apt-get install -y fonts-noto-cjk && fc-cache -fv
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Rebuild matplotlib font cache
+        run: python -c "import matplotlib.font_manager as fm; fm._rebuild()"
+
+      # ── 各国モデル実行 (失敗しても続行) ──────────────────────────────
+      - name: Run JP cycle model
+        id: run_jp
+        continue-on-error: true
+        run: python scripts/run_cycle.py --country jp
+
+      - name: Run US cycle model
+        id: run_us
+        continue-on-error: true
+        run: python scripts/run_cycle.py --country us
+
+      - name: Run KR cycle model
+        id: run_kr
+        continue-on-error: true
+        run: python scripts/run_cycle.py --country kr
+
+      # ── レポート生成 ───────────────────────────────────────────────
+      - name: Generate monthly report
+        run: |
+          python scripts/generate_report.py \
+            --jp-ok ${{ steps.run_jp.outcome == 'success' }} \
+            --us-ok ${{ steps.run_us.outcome == 'success' }} \
+            --kr-ok ${{ steps.run_kr.outcome == 'success' }}
+
+      # ── PNG + MD をコミット & プッシュ ─────────────────────────────
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # data/ の PNG のみ追加 (parquet は .gitignore で除外済み)
+          git add data/
+          git add reports/
+          # 変更があるときだけコミット ([skip ci] でループ防止)
+          git diff --cached --quiet \
+            && echo "Nothing to commit." \
+            || (git commit -m "chore: monthly cycle update $(date +%Y-%m) [skip ci]" \
+                && git push origin HEAD:main)

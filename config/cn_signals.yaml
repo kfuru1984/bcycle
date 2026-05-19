@@ -1,0 +1,24 @@
+# =============================================================
+# China External Reference Signals
+# =============================================================
+# 中国は OECD 非加盟でフル景気循環モデルは構築不可。
+# 外部参照シグナルとして JP/US/KR のサマリーと並べて表示する。
+#
+# PMI (NBS / Caixin) は FRED・OECD SDMX ともに無償提供なし。
+# 代替: OECD FRED 経由の製造業景況感指数 (BSCICP) を使用。
+# =============================================================
+
+signals:
+  - id: cn_mfg_bci
+    name_en: China Manufacturing Business Confidence (OECD, SA)
+    name_ja: 中国製造業景況感 (OECD標準化BCI)
+    source: fred
+    series_id: "CHNBSCICP02STSAM"
+    # FRED: Business Tendency Surveys (Manufacturing): Confidence Indicator for China, SA
+    # coverage: 2000-02 ~ 2026-04 (315 obs)
+    # scale: centered at 0 — positive=expanding, negative=contracting
+    # NOTE: NOT PMI. OECD standardized BCI (balance statistic).
+    #       NBS PMI / Caixin PMI は FRED/OECD で無償取得不可。
+    threshold: 0.0
+    expanding_label: "Expanding"
+    contracting_label: "Contracting"

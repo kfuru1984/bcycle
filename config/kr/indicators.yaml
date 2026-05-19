@@ -1,0 +1,149 @@
+# =============================================================
+# 韓国景気循環モデル - 指標定義
+# =============================================================
+# prefer: oecd → 認証不要 (OECD SDMX REST API)
+# prefer: fred → FRED_API_KEY 必要
+# unemployment_rate: OECD/FRED ともに KOR SA 月次データなし → スキップ
+# =============================================================
+
+meta:
+  country: KR
+  frequency: monthly
+  cycle_definition: "growth_cycle"
+  rolling_z_window_years: 10
+  start_date: "1990-01-01"
+
+indicators:
+
+  # ============================================================
+  # 1. 生産 (Production)
+  # ============================================================
+  - id: ip_yoy
+    name_en: Industrial Production YoY (%, OECD MEI)
+    category: production
+    phase: coincident
+    frequency: monthly
+    transform: level            # OECD MEI YoY 系列は前年比を直接提供
+    prefer: fred
+    sources:
+      fred:
+        series_id: "KORPRINTO01GYSAM"   # OECD MEI: Korea IIP excl.construction YoY SA
+                                         # coverage: 1991-01 ~ 2026-03
+
+  # ============================================================
+  # 2. 労働 (Labor) — SA 月次データ OECD/FRED ともに不在、スキップ
+  # ============================================================
+  # unemployment_rate は KOR の月次 SA 系列が
+  # OECD DF_IALFS_UNE_M / FRED LRUN64TTKOR156S ともに取得不可。
+  # weight=0 で登録し、実質スキップ扱いとする。
+  - id: unemployment_rate
+    name_en: Unemployment Rate (KOR monthly SA -- not available)
+    category: labor
+    phase: lagging
+    frequency: monthly
+    transform: level
+    prefer: oecd
+    sources:
+      oecd:
+        dataflow: "OECD.SDD.TPS,DSD_LFS@DF_IALFS_UNE_M,1.0"
+        key: "KOR........."
+        select:
+          SEX: "_T"
+          AGE: "Y_GE15"
+          FREQ: "M"
+          ADJUSTMENT: "Y"
+
+  # ============================================================
+  # 3. 外需 (Exports)
+  # ============================================================
+  - id: exports_yoy
+    name_en: Exports YoY (%, SA, OECD/FRED)
+    category: external
+    phase: coincident
+    frequency: monthly
+    transform: level            # 既に YoY% (成長率) で提供
+    prefer: fred
+    sources:
+      fred:
+        series_id: "XTEXVA01KRM659S"   # OECD Intl Trade: Korea Exports SA, YoY growth
+                                        # coverage: 1958-01 ~ 2026-03
+
+  # ============================================================
+  # 4. 物価 (Inflation)
+  # ============================================================
+  - id: core_cpi_yoy
+    name_en: Core CPI YoY (%, ex food & energy, OECD)
+    category: inflation
+    phase: lagging
+    frequency: monthly
+    transform: level            # OECD が既に YoY % を提供
+    prefer: oecd
+    sources:
+      oecd:
+        dataflow: "OECD.SDD.TPS,DSD_PRICES@DF_PRICES_N_TXCP01_NRG,1.0"
+        key: "KOR.M.N.CPI.PA._TXCP01_NRG.N.GY"
+        # coverage: 1990-01 ~ 2026-04
+
+  # ============================================================
+  # 5. 消費者信頼感 (Consumer Confidence)
+  # ============================================================
+  - id: consumer_confidence
+    name_en: Consumer Confidence (CCICP, OECD KEI)
+    category: consumption
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: oecd
+    sources:
+      oecd:
+        dataflow: "OECD.SDD.STES,DSD_KEI@DF_KEI,4.0"
+        key: "KOR.M.CCICP......."
+        select:
+          MEASURE: "CCICP"
+          TRANSFORMATION: "_Z"
+        # coverage: 1998-12 ~ 2026-04
+
+  # ============================================================
+  # 6-8. 金融 (Financial Conditions)
+  # ============================================================
+  # ── 中間指標: derived 計算の素材 ──────────────────────────────
+  - id: policy_rate
+    name_en: Overnight Call Rate (%, OECD MEI)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "IRSTCI01KRM156N"    # OECD MEI: Korea overnight call rate
+    notes: "real_policy_rate / yc_10y2y の計算素材。composite には入れない(weight=0)"
+
+  - id: kr_10y
+    name_en: Korea 10Y Government Bond Yield (%)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: level
+    prefer: fred
+    sources:
+      fred:
+        series_id: "IRLTLT01KRM156N"    # OECD MEI: Korea 10Y government bond yield
+    notes: "yc_10y2y の計算素材。composite には入れない(weight=0)"
+
+  - id: real_policy_rate
+    name_en: Real Policy Rate (Call Rate - Core CPI YoY)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: derived
+    formula: "policy_rate - core_cpi_yoy"
+
+  - id: yc_10y2y
+    name_en: Yield Curve Slope (10Y - Call Rate, %)
+    category: financial
+    phase: leading
+    frequency: monthly
+    transform: derived
+    formula: "kr_10y - policy_rate"
+    notes: "2Y KTB の OECD/FRED 掲載なし → 翌日物コールで代替"

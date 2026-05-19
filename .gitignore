@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+
+# Venv
+.venv/
+venv/
+env/
+
+# Env
+.env
+
+# Data cache (parquet/csv) - don't commit raw cache files
+data/*.parquet
+data/*.csv
+data/**/*.parquet
+data/**/*.csv
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
