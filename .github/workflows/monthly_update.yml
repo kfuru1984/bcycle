@@ -57,7 +57,11 @@ jobs:
             --us-ok ${{ steps.run_us.outcome == 'success' }} \
             --kr-ok ${{ steps.run_kr.outcome == 'success' }}
 
-      # ── PNG + MD をコミット & プッシュ ─────────────────────────────
+      # ── ダッシュボード生成 ────────────────────────────────────────
+      - name: Generate dashboard
+        run: python scripts/generate_dashboard.py
+
+      # ── PNG + MD + HTML をコミット & プッシュ ──────────────────
       - name: Commit and push
         run: |
           git config user.name  "github-actions[bot]"
@@ -65,6 +69,7 @@ jobs:
           # data/ の PNG のみ追加 (parquet は .gitignore で除外済み)
           git add data/
           git add reports/
+          git add docs/
           # 変更があるときだけコミット ([skip ci] でループ防止)
           git diff --cached --quiet \
             && echo "Nothing to commit." \

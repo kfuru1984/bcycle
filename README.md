@@ -154,6 +154,46 @@ API キー取得:
 
 ---
 
+## ダッシュボード (GitHub Pages)
+
+月次更新パイプラインが `docs/index.html` を自動生成します。
+GitHub Pages を有効にすることで Web ブラウザからアクセス可能になります。
+
+### GitHub Pages 有効化手順
+
+1. GitHub リポジトリページを開く
+2. **Settings → Pages** を開く
+3. **Source** で "Deploy from a branch" を選択
+4. **Branch** を `main`、フォルダを `/ docs` に設定
+5. **Save** をクリック
+
+数分後に `https://<username>.github.io/<repo>/` で公開されます。
+
+### 月次自動更新 (GitHub Actions)
+
+`.github/workflows/monthly_update.yml` が毎月25日 09:00 UTC に自動実行:
+
+| ステップ | 内容 |
+|---------|------|
+| run_cycle.py × 3 | JP/US/KR モデル実行 (continue-on-error) |
+| generate_report.py | `reports/YYYY-MM.md` 生成 |
+| generate_dashboard.py | `docs/index.html` 生成 |
+| git push | PNG / MD / HTML のみコミット (parquet は .gitignore 除外) |
+
+**必要な GitHub Secrets:**
+
+```
+ESTAT_APP_ID   # e-Stat API キー (JP)
+FRED_API_KEY   # FRED API キー (US / KR / CN Signal)
+ECOS_API_KEY   # 韓国銀行 API キー (KR)
+```
+
+Settings → Secrets and variables → Actions → New repository secret で登録。
+
+手動実行: Actions タブ → "Monthly Business Cycle Update" → **Run workflow**
+
+---
+
 ## ライセンス・補足
 
 - 内部リサーチ用途を想定
