@@ -33,9 +33,6 @@ jobs:
       - name: Install dependencies
         run: pip install -e ".[dev]"
 
-      - name: Rebuild matplotlib font cache
-        run: python -c "import matplotlib.font_manager as fm; fm._rebuild()"
-
       # ── 各国モデル実行 (失敗しても続行) ──────────────────────────────
       - name: Run JP cycle model
         id: run_jp
