@@ -26,6 +26,8 @@ composite:
     exports_yoy: 1.0
     # 中間指標 (derived 計算の素材; composite に入れない)
     fedfunds: 0.0
+    # 実質賃金計算素材 (composite に含めない)
+    nominal_wage_yoy: 0.0
 
   invert_sign:
     - unemployment_rate

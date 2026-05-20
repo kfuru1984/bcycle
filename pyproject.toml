@@ -13,6 +13,7 @@ dependencies = [
     "fredapi>=0.5",
     "pyarrow>=14.0",
     "scipy>=1.11",
+    "anthropic>=0.40",
 ]
 
 [project.optional-dependencies]

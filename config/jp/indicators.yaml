@@ -244,3 +244,18 @@ indicators:
       bloomberg:
         ticker: "JNCWWDIC Index"         # 要確認
     notes: "短観(四半期)の月次代替。現場感ある"
+
+  # ============================================================
+  # 11. 賃金 (Wages) — real_wage_yoy 計算用、composite に含めない
+  # ============================================================
+  - id: nominal_wage_yoy
+    name_ja: 製造業賃金(時間当たり報酬、前年同月比)
+    category: labor
+    phase: lagging
+    frequency: monthly
+    transform: yoy_pct
+    prefer: fred
+    sources:
+      fred:
+        series_id: "LCEAMN01JPM661S"   # OECD: Japan manufacturing compensation/hour, Index 2015=100, SA
+    notes: "実質賃金 = nominal_wage_yoy - core_cpi_yoy。composite には入れない(weight=0)"

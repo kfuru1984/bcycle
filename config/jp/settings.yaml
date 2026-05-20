@@ -29,6 +29,8 @@ composite:
     consumer_confidence: 0.0
     exports_yoy: 0.0
     economy_watchers_current: 0.0
+    # 実質賃金計算素材 (composite に含めない)
+    nominal_wage_yoy: 0.0
 
   invert_sign:
     - unemployment_rate

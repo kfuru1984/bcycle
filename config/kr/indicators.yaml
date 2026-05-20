@@ -19,6 +19,7 @@ indicators:
   # 1. 生産 (Production)
   # ============================================================
   - id: ip_yoy
+    name_ja: 鉱工業生産指数 YoY(韓国)
     name_en: Industrial Production YoY (%, OECD MEI)
     category: production
     phase: coincident
@@ -37,6 +38,7 @@ indicators:
   # OECD DF_IALFS_UNE_M / FRED LRUN64TTKOR156S ともに取得不可。
   # weight=0 で登録し、実質スキップ扱いとする。
   - id: unemployment_rate
+    name_ja: 失業率(韓国、データなし)
     name_en: Unemployment Rate (KOR monthly SA -- not available)
     category: labor
     phase: lagging
@@ -57,6 +59,7 @@ indicators:
   # 3. 外需 (Exports)
   # ============================================================
   - id: exports_yoy
+    name_ja: 輸出YoY(韓国)
     name_en: Exports YoY (%, SA, OECD/FRED)
     category: external
     phase: coincident
@@ -72,6 +75,7 @@ indicators:
   # 4. 物価 (Inflation)
   # ============================================================
   - id: core_cpi_yoy
+    name_ja: コアCPI YoY(韓国)
     name_en: Core CPI YoY (%, ex food & energy, OECD)
     category: inflation
     phase: lagging
@@ -88,6 +92,7 @@ indicators:
   # 5. 消費者信頼感 (Consumer Confidence)
   # ============================================================
   - id: consumer_confidence
+    name_ja: 企業信頼感(韓国)
     name_en: Consumer Confidence (CCICP, OECD KEI)
     category: consumption
     phase: leading
@@ -108,6 +113,7 @@ indicators:
   # ============================================================
   # ── 中間指標: derived 計算の素材 ──────────────────────────────
   - id: policy_rate
+    name_ja: コールレート(韓国)
     name_en: Overnight Call Rate (%, OECD MEI)
     category: financial
     phase: leading
@@ -120,6 +126,7 @@ indicators:
     notes: "real_policy_rate / yc_10y2y の計算素材。composite には入れない(weight=0)"
 
   - id: kr_10y
+    name_ja: 国債10年利回り(韓国)
     name_en: Korea 10Y Government Bond Yield (%)
     category: financial
     phase: leading
@@ -132,6 +139,7 @@ indicators:
     notes: "yc_10y2y の計算素材。composite には入れない(weight=0)"
 
   - id: real_policy_rate
+    name_ja: 実質政策金利(韓国)
     name_en: Real Policy Rate (Call Rate - Core CPI YoY)
     category: financial
     phase: leading
@@ -140,6 +148,7 @@ indicators:
     formula: "policy_rate - core_cpi_yoy"
 
   - id: yc_10y2y
+    name_ja: イールドカーブ(韓国)
     name_en: Yield Curve Slope (10Y - Call Rate, %)
     category: financial
     phase: leading
@@ -147,3 +156,19 @@ indicators:
     transform: derived
     formula: "kr_10y - policy_rate"
     notes: "2Y KTB の OECD/FRED 掲載なし → 翌日物コールで代替"
+
+  # ============================================================
+  # 賃金 (Wages) — real_wage_yoy 計算用、composite に含めない
+  # ============================================================
+  - id: nominal_wage_yoy
+    name_ja: 製造業賃金 YoY(韓国)
+    name_en: Manufacturing Compensation per Hour YoY (%, OECD)
+    category: labor
+    phase: lagging
+    frequency: monthly
+    transform: yoy_pct
+    prefer: fred
+    sources:
+      fred:
+        series_id: "LCEAMN01KRM661S"   # OECD: Korea manufacturing compensation/hour, Index 2015=100, SA
+    notes: "実質賃金 = nominal_wage_yoy - core_cpi_yoy。composite には入れない(weight=0)"

@@ -26,6 +26,8 @@ composite:
     # 中間指標 (derived 計算の素材; composite に入れない)
     policy_rate: 0.0
     kr_10y: 0.0
+    # 実質賃金計算素材 (composite に含めない)
+    nominal_wage_yoy: 0.0
 
   invert_sign: []
 
