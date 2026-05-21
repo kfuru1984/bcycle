@@ -1,0 +1,67 @@
+# ============================================================
+# Japan Manufacturing Data — Inventory Cycle Analysis
+# ============================================================
+# Last updated: 2026-05-21
+#
+# Sources:
+#   aggregate IPI YoY : FRED JPNPRINTO01GYSAM (OECD, 1956-present)
+#   shipments/inv     : e-Stat METI 鉱工業生産・出荷・在庫指数 (00550300)
+#     - stats_data_id "0004015801" = 出荷 (2020=100, SA, 2018-01 ~ present)
+#     - stats_data_id "0004015802" = 在庫 (2020=100, SA, 2018-01 ~ present)
+#   activity proxy    : FRED JPNLOLITONOSTSAM (OECD CLI)
+# ============================================================
+
+country: JP
+
+aggregate:
+  ipi_yoy:
+    fred:
+      series_id: "JPNPRINTO01GYSAM"
+  activity_indicator:
+    fred:
+      series_id: "JPNLOLITONOSTSAM"   # OECD CLI (PMI proxy; JP BCI not on FRED)
+
+estat_meti:
+  stats_code: "00550300"
+  shipments_id: "0004015801"
+  inventories_id: "0004015802"
+  time_from_cat: "time"               # time stored as category codes in CLASS_OBJ @id=time
+  aggregate_cat01: "0002000"          # 製造工業(総合)
+
+sectors:
+  - id: steel_nonferrous
+    name_ja: 鉄鋼・非鉄金属
+    cat01: "0003000"
+  - id: metal_products
+    name_ja: 金属製品
+    cat01: "0016000"
+  - id: glass_ceramics
+    name_ja: 窯業・土石製品
+    cat01: "0079000"
+  - id: chemicals
+    name_ja: 化学工業（除．医薬品）
+    cat01: "0085000"
+  - id: petroleum_coal
+    name_ja: 石油・石炭製品
+    cat01: "0099000"
+  - id: plastics
+    name_ja: プラスチック製品
+    cat01: "0102000"
+  - id: paper_pulp
+    name_ja: パルプ・紙・紙加工品
+    cat01: "0107000"
+  - id: gen_commercial_machinery
+    name_ja: 汎用・業務用機械
+    cat01: "0033000"
+  - id: production_machinery
+    name_ja: 生産用機械
+    cat01: "0024000"
+  - id: transport_equipment
+    name_ja: 輸送機械
+    cat01: "0069000"
+  - id: electrical_ict
+    name_ja: 電気・情報通信機械
+    cat01: "0052000"
+  - id: electronic_devices
+    name_ja: 電子部品・デバイス
+    cat01: "0046000"

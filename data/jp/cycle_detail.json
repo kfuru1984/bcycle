@@ -1,0 +1,137 @@
+{
+  "ok": true,
+  "country": "JP",
+  "as_of": "2026-03",
+  "stage": "下降",
+  "level": 54.4,
+  "momentum": -0.16,
+  "cb_stance": "ややビハインド",
+  "cb_detail": "Taylor比 -1.0%下、緩和的 / YC +1.62%",
+  "real_policy_rate": -1.0,
+  "yc_10y2y": 1.62,
+  "real_wage_yoy": 3.66,
+  "core_cpi_yoy": 1.72,
+  "top3_level": [
+    {
+      "id": "yc_10y2y",
+      "name_ja": "JGB イールドカーブ勾配(10Y - TONA、%)",
+      "category": "financial",
+      "percentile": 100.0,
+      "z": 3.0,
+      "value": 1.617,
+      "transform": "derived"
+    },
+    {
+      "id": "ip_yoy",
+      "name_ja": "鉱工業生産指数(前年同月比、季調済)",
+      "category": "production",
+      "percentile": 66.7,
+      "z": 0.21,
+      "value": 0.495,
+      "transform": "level"
+    },
+    {
+      "id": "core_cpi_yoy",
+      "name_ja": "コアCPI(生鮮食品除く総合、前年同月比)",
+      "category": "inflation",
+      "percentile": 61.7,
+      "z": 0.32,
+      "value": 1.724,
+      "transform": "yoy_pct"
+    }
+  ],
+  "top3_momentum": [
+    {
+      "id": "yc_10y2y",
+      "name_ja": "JGB イールドカーブ勾配(10Y - TONA、%)",
+      "category": "financial",
+      "percentile": 100.0,
+      "z": 3.0,
+      "value": 1.617,
+      "transform": "derived"
+    },
+    {
+      "id": "jobs_to_applicants_ratio",
+      "name_ja": "有効求人倍率(除学卒、季調済)",
+      "category": "labor",
+      "percentile": 17.1,
+      "z": -0.92,
+      "value": 1.18,
+      "transform": "level"
+    },
+    {
+      "id": "core_cpi_yoy",
+      "name_ja": "コアCPI(生鮮食品除く総合、前年同月比)",
+      "category": "inflation",
+      "percentile": 61.7,
+      "z": 0.32,
+      "value": 1.724,
+      "transform": "yoy_pct"
+    }
+  ],
+  "per_indicators": {
+    "ip_yoy": {
+      "id": "ip_yoy",
+      "name_ja": "鉱工業生産指数(前年同月比、季調済)",
+      "category": "production",
+      "percentile": 66.7,
+      "z": 0.21,
+      "value": 0.495,
+      "transform": "level"
+    },
+    "unemployment_rate": {
+      "id": "unemployment_rate",
+      "name_ja": "完全失業率(季調値、%)",
+      "category": "labor",
+      "percentile": 40.0,
+      "z": -0.08,
+      "value": 2.8,
+      "transform": "level"
+    },
+    "housing_starts_yoy": {
+      "id": "housing_starts_yoy",
+      "name_ja": "新設住宅着工戸数(前年同月比)",
+      "category": "housing",
+      "percentile": 42.5,
+      "z": -0.23,
+      "value": -2.522,
+      "transform": "yoy_pct"
+    },
+    "core_cpi_yoy": {
+      "id": "core_cpi_yoy",
+      "name_ja": "コアCPI(生鮮食品除く総合、前年同月比)",
+      "category": "inflation",
+      "percentile": 61.7,
+      "z": 0.32,
+      "value": 1.724,
+      "transform": "yoy_pct"
+    },
+    "jobs_to_applicants_ratio": {
+      "id": "jobs_to_applicants_ratio",
+      "name_ja": "有効求人倍率(除学卒、季調済)",
+      "category": "labor",
+      "percentile": 17.1,
+      "z": -0.92,
+      "value": 1.18,
+      "transform": "level"
+    },
+    "real_policy_rate": {
+      "id": "real_policy_rate",
+      "name_ja": "実質政策金利(TONA - コアCPI YoY)",
+      "category": "financial",
+      "percentile": 40.8,
+      "z": 0.18,
+      "value": -0.996,
+      "transform": "derived"
+    },
+    "yc_10y2y": {
+      "id": "yc_10y2y",
+      "name_ja": "JGB イールドカーブ勾配(10Y - TONA、%)",
+      "category": "financial",
+      "percentile": 100.0,
+      "z": 3.0,
+      "value": 1.617,
+      "transform": "derived"
+    }
+  }
+}

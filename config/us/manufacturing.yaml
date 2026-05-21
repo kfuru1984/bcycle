@@ -1,0 +1,69 @@
+# ============================================================
+# US Manufacturing Data — Inventory Cycle Analysis
+# ============================================================
+# Last updated: 2026-05-21
+#
+# Sources:
+#   aggregate IPI    : FRED IPMAN (Fed IP manufacturing index, 2017=100, SA)
+#   shipments        : FRED MNFCTRSMSA (Census M3 SA, millions USD, 1992-present)
+#   inventories      : FRED MNFCTRIRSA (Census M3 SA, millions USD, 1992-present)
+#   activity proxy   : FRED BSCICP02USM460S (OECD US BCI SA)
+#   sectors          : FRED IPG{NAICS}S — production proxy only
+#                      (no sector-level shipments/inventories on FRED)
+# ============================================================
+
+country: US
+
+aggregate:
+  ipi:
+    fred:
+      series_id: "IPMAN"              # level index; YoY computed in code
+  shipments:
+    fred:
+      series_id: "MNFCTRSMSA"
+  inventories:
+    fred:
+      series_id: "MNFCTRIRSA"
+  activity_indicator:
+    fred:
+      series_id: "BSCICP02USM460S"
+
+sectors:
+  - id: primary_metals
+    name_ja: 一次金属
+    fred:
+      series_id: "IPG331S"
+  - id: fabricated_metals
+    name_ja: 金属製品
+    fred:
+      series_id: "IPG332S"
+  - id: chemicals
+    name_ja: 石油化学・化学
+    fred:
+      series_id: "IPG325S"
+  - id: paper
+    name_ja: 紙製品
+    fred:
+      series_id: "IPG322S"
+  - id: plastics_rubber
+    name_ja: プラスチック・ゴム
+    fred:
+      series_id: "IPG326S"
+  - id: machinery
+    name_ja: 一般機械
+    fred:
+      series_id: "IPG333S"
+  - id: computers_electronics
+    name_ja: コンピューター・電子機器
+    fred:
+      series_id: "IPG334S"
+  - id: electrical_equipment
+    name_ja: 電気機械
+    fred:
+      series_id: "IPG335S"
+  - id: transport_equipment
+    name_ja: 輸送機械
+    fred:
+      series_id: "IPG336S"
+
+notes: "US sectors use IP production YoY as 出荷在庫バランス proxy (no sector-level shipments/inventories on FRED)"

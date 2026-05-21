@@ -11,6 +11,7 @@ reports/YYYY-MM.md を生成して reports/README.md のインデックスを更
 from __future__ import annotations
 
 import argparse
+import json
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -120,6 +121,106 @@ def fetch_cn_signal() -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Inventory cycle
+# ─────────────────────────────────────────────────────────────────────────────
+
+def load_inv_cycle_summary() -> dict:
+    """Load data/inv_cycle_summary.json; return {} if absent or unreadable."""
+    p = ROOT / "data" / "inv_cycle_summary.json"
+    if not p.exists():
+        return {}
+    try:
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def inv_cycle_section_md(summary: dict) -> str:
+    """Return markdown section for inventory cycle analysis."""
+    if not summary:
+        return "## 在庫循環分析\n\n*(データなし — run_inventory_cycle.py 未実行)*\n"
+
+    generated_at = summary.get("generated_at", "—")
+    inv_countries = ["JP", "US", "EU", "CN"]
+
+    # Phase summary table
+    phase_rows = []
+    for c in inv_countries:
+        d = summary.get(c)
+        if d is None:
+            phase_rows.append(f"| {c} | — | — | — |")
+            continue
+        if not d.get("ok"):
+            phase_rows.append(f"| {c} | 取得失敗 | — | — |")
+            continue
+        phase       = d.get("phase", "—")
+        prev_phase  = d.get("prev_phase") or "—"
+        changed_str = "★" if d.get("phase_changed") else ""
+        phase_rows.append(f"| {c} | {phase}{changed_str} | {prev_phase} | {'変化あり' if d.get('phase_changed') else '変化なし'} |")
+
+    phase_table = (
+        "| 国 | フェーズ | 前回判定 | 変化 |\n"
+        "|---|---|---|---|\n"
+        + "\n".join(phase_rows)
+    )
+
+    # Recovery score tables (JP and US only — sectors exist for these)
+    score_parts = []
+    for c in ["JP", "US"]:
+        d = summary.get(c)
+        if d is None or not d.get("ok"):
+            continue
+        top3 = d.get("top3_recovery", [])
+        bot3 = d.get("bot3_recovery", [])
+        if not top3 and not bot3:
+            continue
+
+        def _score_rows(items: list[dict]) -> str:
+            if not items:
+                return "*(なし)*"
+            return "\n".join(
+                f"| {row['name']} | {row['score']:.1f}pt |"
+                for row in items
+            )
+
+        score_parts.append(
+            f"### {c} — 回復スコア\n\n"
+            f"**上位3業種 (最も回復)**\n\n"
+            f"| 業種 | スコア |\n|---|---|\n{_score_rows(top3)}\n\n"
+            f"**下位3業種 (最も低迷)**\n\n"
+            f"| 業種 | スコア |\n|---|---|\n{_score_rows(bot3)}"
+        )
+
+    score_block = "\n\n".join(score_parts) if score_parts else "*(業種別データなし)*"
+
+    return f"""\
+## 在庫循環分析
+
+*データ生成: {generated_at}*
+
+### フェーズ判定
+
+{phase_table}
+
+★ = 前回判定から変化あり
+
+### 業種別回復スコア
+
+{score_block}
+
+### チャート
+
+![製造業活動指標](../data/inv_cycle_activity.png)
+
+![JP 在庫循環](../data/jp/inv_cycle_ts.png)
+![US 在庫循環](../data/us/inv_cycle_ts.png)
+![EU 在庫循環](../data/eu/inv_cycle_ts.png)
+![CN 在庫循環](../data/cn/inv_cycle_ts.png)
+"""
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Report assembly
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -136,8 +237,10 @@ def generate_report(
     report_month = run_date.strftime("%Y-%m")
     out_path     = REPORTS_DIR / f"{report_month}.md"
 
-    country_data = {c: load_country(c, run_ok.get(c, True)) for c in COUNTRIES}
-    cn_line      = fetch_cn_signal()
+    country_data  = {c: load_country(c, run_ok.get(c, True)) for c in COUNTRIES}
+    cn_line       = fetch_cn_signal()
+    inv_summary   = load_inv_cycle_summary()
+    inv_cycle_sec = inv_cycle_section_md(inv_summary)
 
     # --- Summary table ---
     summary_rows = []
@@ -201,7 +304,8 @@ def generate_report(
 ## データカバレッジ
 
 {cov_block}
-"""
+
+{inv_cycle_sec}"""
 
     out_path.write_text(report, encoding="utf-8")
     print(f"レポート生成: {out_path}")

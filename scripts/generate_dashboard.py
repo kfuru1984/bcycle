@@ -690,12 +690,31 @@ a{color:#60a5fa}
 footer{text-align:center;margin-top:20px;padding:12px 0;
        font-size:.65rem;color:#334155;border-top:1px solid #1e293b}
 
+/* ── Inventory cycle section ─────────────────────────────── */
+.inv-section{background:#111827;border-radius:12px;padding:20px 24px;
+             border:1px solid #334155;margin-top:20px}
+.inv-section-header{font-size:.9rem;font-weight:600;letter-spacing:2px;
+                    text-transform:uppercase;color:#94a3b8;margin-bottom:16px;
+                    padding-bottom:8px;border-bottom:1px solid #1e293b}
+.inv-global{background:#1e293b;border-radius:10px;overflow:hidden;
+            border:1px solid #334155;margin-bottom:14px}
+.inv-global img{width:100%;display:block}
+.inv-ts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.inv-sector-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.inv-chart{background:#1e293b;border-radius:10px;overflow:hidden;border:1px solid #334155}
+.inv-chart-label{padding:6px 12px;font-size:.6rem;text-transform:uppercase;
+                 letter-spacing:2px;color:#475569;border-bottom:1px solid #0f172a}
+.inv-chart img{width:100%;display:block}
+.inv-chart-missing{padding:24px;text-align:center;color:#334155;font-size:.78rem}
+
 /* ── Responsive ─────────────────────────────────────────────── */
 @media(max-width:900px){
   .info-grid{grid-template-columns:1fr}
   .factor-grid{grid-template-columns:1fr}
   .metrics-row{grid-template-columns:repeat(2,1fr)}
   .hc-right{justify-content:flex-start}
+  .inv-ts-grid{grid-template-columns:1fr}
+  .inv-sector-grid{grid-template-columns:1fr}
 }
 """
 
@@ -754,6 +773,66 @@ def _build_country_panel(country: str, detail: dict, sc: dict, chart_uri: str | 
     return f'<div class="panel active" id="panel-{country}">\n{body}\n</div>'
 
 
+INV_COUNTRIES_TS     = ["jp", "us", "eu", "cn"]
+INV_COUNTRIES_SECTOR = ["jp", "us"]
+INV_LABELS           = {"jp": "日本", "us": "米国", "eu": "ユーロ圏", "cn": "中国"}
+
+
+def _build_inv_cycle_section() -> str:
+    """在庫循環分析セクションの HTML を構築する。"""
+
+    def _chart(uri: str | None, label: str) -> str:
+        inner = (
+            f'<img src="{uri}" alt="{label}">'
+            if uri
+            else f'<div class="inv-chart-missing">{label}: チャート未生成</div>'
+        )
+        return (
+            f'<div class="inv-chart">'
+            f'<div class="inv-chart-label">{label}</div>'
+            f'{inner}'
+            f'</div>'
+        )
+
+    # Global activity comparison
+    global_uri = _b64(ROOT / "data" / "inv_cycle_activity.png")
+    if global_uri:
+        global_html = (
+            f'<div class="inv-global">'
+            f'<img src="{global_uri}" alt="製造業活動指標比較">'
+            f'</div>'
+        )
+    else:
+        global_html = (
+            '<div class="inv-global">'
+            '<div class="inv-chart-missing">製造業活動指標比較: チャート未生成</div>'
+            '</div>'
+        )
+
+    # Per-country timeseries (2x2 grid)
+    ts_items = []
+    for c in INV_COUNTRIES_TS:
+        uri = _b64(ROOT / "data" / c / "inv_cycle_ts.png")
+        ts_items.append(_chart(uri, INV_LABELS.get(c, c.upper())))
+    ts_html = '<div class="inv-ts-grid">' + "\n".join(ts_items) + "</div>"
+
+    # Per-country sector charts (JP, US only)
+    sector_items = []
+    for c in INV_COUNTRIES_SECTOR:
+        uri = _b64(ROOT / "data" / c / "inv_cycle_sector.png")
+        sector_items.append(_chart(uri, f"{INV_LABELS.get(c, c.upper())} — 業種別断面"))
+    sector_html = '<div class="inv-sector-grid">' + "\n".join(sector_items) + "</div>"
+
+    return (
+        '<div class="inv-section">\n'
+        '<div class="inv-section-header">在庫循環分析</div>\n'
+        + global_html + "\n"
+        + ts_html + "\n"
+        + sector_html + "\n"
+        + "</div>"
+    )
+
+
 def generate() -> Path:
     from dotenv import load_dotenv
     load_dotenv()
@@ -792,6 +871,9 @@ def generate() -> Path:
     # ── CN signal ──────────────────────────────────────────────────────
     cn_html = _cn_signal_html()
 
+    # ── Inventory cycle section ────────────────────────────────────────
+    inv_cycle_html = _build_inv_cycle_section()
+
     # ── Latest report link ─────────────────────────────────────────────
     report_files = sorted((ROOT / "reports").glob("20??-??.md"), reverse=True)
     if report_files:
@@ -825,6 +907,8 @@ def generate() -> Path:
 {tab_html}</div>
 
 {panels_html}
+
+{inv_cycle_html}
 
 </div>
 <footer>

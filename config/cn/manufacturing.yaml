@@ -1,0 +1,27 @@
+# ============================================================
+# China Manufacturing Data — Inventory Cycle Analysis
+# ============================================================
+# Last updated: 2026-05-21
+#
+# Sources:
+#   activity proxy : FRED CHNBSCICP02STSAM (OECD CN BCI SA)
+#   leading index  : FRED CHNLOLITONOSTSAM (OECD CLI)
+#
+# Note: CN IPI not available on FRED/OECD. No shipments/inventories data.
+#       BCI used as manufacturing activity proxy in global comparison chart.
+#       Balance chart and sector chart are skipped for CN.
+# ============================================================
+
+country: CN
+
+aggregate:
+  activity_indicator:
+    fred:
+      series_id: "CHNBSCICP02STSAM"
+  cli:
+    fred:
+      series_id: "CHNLOLITONOSTSAM"
+
+sectors: []
+
+notes: "CN: No IPI/shipments/inventories on FRED. BCI/CLI proxy only."

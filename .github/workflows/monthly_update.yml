@@ -49,6 +49,11 @@ jobs:
         continue-on-error: true
         run: python scripts/run_cycle.py --country kr
 
+      # ── 在庫循環分析 ─────────────────────────────────────────────
+      - name: Run inventory cycle analysis
+        continue-on-error: true
+        run: python scripts/run_inventory_cycle.py --countries jp us eu cn
+
       # ── レポート生成 ───────────────────────────────────────────────
       - name: Generate monthly report
         run: |

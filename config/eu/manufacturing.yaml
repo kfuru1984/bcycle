@@ -1,0 +1,27 @@
+# ============================================================
+# EU Manufacturing Data — Inventory Cycle Analysis
+# ============================================================
+# Last updated: 2026-05-21
+#
+# Sources:
+#   aggregate IPI YoY : FRED EA19PRINTO01GYSAM (OECD EA19, ends 2023-10)
+#   activity proxy    : FRED BSCICP02EZM460S (OECD EU BCI SA)
+#
+# Note: EA19 OECD series ends 2023-10 (OECD discontinued this dataset).
+#       No sector-level data available for EU on FRED/OECD.
+#       No shipments/inventories → balance chart skipped.
+# ============================================================
+
+country: EU
+
+aggregate:
+  ipi_yoy:
+    fred:
+      series_id: "EA19PRINTO01GYSAM"  # ends 2023-10
+  activity_indicator:
+    fred:
+      series_id: "BSCICP02EZM460S"
+
+sectors: []
+
+notes: "EU IPI data ends 2023-10. No sector or balance data available."
