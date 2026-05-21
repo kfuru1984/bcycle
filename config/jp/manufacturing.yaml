@@ -28,40 +28,53 @@ estat_meti:
   time_from_cat: "time"               # time stored as category codes in CLASS_OBJ @id=time
   aggregate_cat01: "0002000"          # 製造工業(総合)
 
+# cycle_stage: early=基礎素材・中間財, mid=資本財・電子, late=最終消費財
 sectors:
   - id: steel_nonferrous
     name_ja: 鉄鋼・非鉄金属
     cat01: "0003000"
+    cycle_stage: early
   - id: metal_products
     name_ja: 金属製品
     cat01: "0016000"
+    cycle_stage: early
   - id: glass_ceramics
     name_ja: 窯業・土石製品
     cat01: "0079000"
+    cycle_stage: early
   - id: chemicals
     name_ja: 化学工業（除．医薬品）
     cat01: "0085000"
+    cycle_stage: early
   - id: petroleum_coal
     name_ja: 石油・石炭製品
     cat01: "0099000"
+    cycle_stage: early
   - id: plastics
     name_ja: プラスチック製品
     cat01: "0102000"
+    cycle_stage: early
   - id: paper_pulp
     name_ja: パルプ・紙・紙加工品
     cat01: "0107000"
+    cycle_stage: early
   - id: gen_commercial_machinery
     name_ja: 汎用・業務用機械
     cat01: "0033000"
+    cycle_stage: mid
   - id: production_machinery
     name_ja: 生産用機械
     cat01: "0024000"
-  - id: transport_equipment
-    name_ja: 輸送機械
-    cat01: "0069000"
+    cycle_stage: mid
   - id: electrical_ict
     name_ja: 電気・情報通信機械
     cat01: "0052000"
+    cycle_stage: mid
   - id: electronic_devices
     name_ja: 電子部品・デバイス
     cat01: "0046000"
+    cycle_stage: mid
+  - id: transport_equipment
+    name_ja: 輸送機械
+    cat01: "0069000"
+    cycle_stage: late

@@ -3,7 +3,7 @@
   "JP": {
     "ok": true,
     "phase": "積み増し加速",
-    "prev_phase": null,
+    "prev_phase": "積み増し加速",
     "phase_changed": false,
     "top3_recovery": [
       {
@@ -37,7 +37,7 @@
   "US": {
     "ok": true,
     "phase": "積み増し加速",
-    "prev_phase": null,
+    "prev_phase": "積み増し加速",
     "phase_changed": false,
     "top3_recovery": [
       {
@@ -67,21 +67,5 @@
         "score": 60.5
       }
     ]
-  },
-  "EU": {
-    "ok": true,
-    "phase": "データなし",
-    "prev_phase": null,
-    "phase_changed": false,
-    "top3_recovery": [],
-    "bot3_recovery": []
-  },
-  "CN": {
-    "ok": true,
-    "phase": "データなし",
-    "prev_phase": null,
-    "phase_changed": false,
-    "top3_recovery": [],
-    "bot3_recovery": []
   }
 }

@@ -94,8 +94,8 @@ def detect_phase(balance: pd.Series, window: int = 3) -> str:
         return "調整加速" if direction > 0 else "調整"
 
 
-def _sector_stats(series: pd.Series, months_back: int = 15) -> dict[str, float] | None:
-    """Peak, trough, Q-5 (15m ago), current over trailing 36-month window."""
+def _sector_stats(series: pd.Series, months_back: int = 12) -> dict[str, float] | None:
+    """Peak, trough, Q-4 (12m ago), current over trailing 36-month window."""
     clean = series.dropna()
     if len(clean) < 13:
         return None
@@ -103,8 +103,8 @@ def _sector_stats(series: pd.Series, months_back: int = 15) -> dict[str, float] 
     peak    = float(window.max())
     trough  = float(window.min())
     current = float(clean.iloc[-1])
-    q5      = float(clean.iloc[-months_back]) if len(clean) >= months_back else float("nan")
-    return {"peak": peak, "trough": trough, "q5": q5, "current": current}
+    q4      = float(clean.iloc[-months_back]) if len(clean) >= months_back else float("nan")
+    return {"peak": peak, "trough": trough, "q4": q4, "current": current}
 
 
 def find_peak_bottom(series: pd.Series, window: int = 36) -> tuple[float, float]:
@@ -183,6 +183,7 @@ def load_jp(start: date = date(2018, 1, 1)) -> dict[str, Any]:
                 st  = _sector_stats(bal)
                 if st is not None:
                     st["recovery_score"] = calc_recovery_score(bal)
+                    st["cycle_stage"]    = sec.get("cycle_stage", "mid")
                     sectors[sec["name_ja"]] = st
             except Exception as exc:
                 log.warning("JP sector %s skipped: %s", sec["name_ja"], exc)
@@ -226,6 +227,7 @@ def load_us(start: date = date(2000, 1, 1)) -> dict[str, Any]:
                 st  = _sector_stats(yoy)
                 if st is not None:
                     st["recovery_score"] = calc_recovery_score(yoy)
+                    st["cycle_stage"]    = sec.get("cycle_stage", "mid")
                     sectors[sec["name_ja"]] = st
             except Exception as exc:
                 log.warning("US sector %s skipped: %s", sec["name_ja"], exc)
@@ -503,7 +505,7 @@ def plot_sector_snapshot(
     data: dict,
     output_path: Path,
 ) -> None:
-    """Sector snapshot bar chart: peak / trough / Q-5 / current per sector."""
+    """Sector snapshot line chart: peak / trough / Q-4 / current per sector."""
     _set_jp_font()
     sectors = data.get("sectors", {})
     if not sectors:
@@ -511,38 +513,44 @@ def plot_sector_snapshot(
         return
 
     country = data.get("country", "??")
-    names   = list(sectors.keys())
-    n       = len(names)
 
-    bar_labels  = ["直近ピーク", "直近ボトム", "Q-5 (15ヶ月前)", "現在"]
-    bar_colors  = ["#2980b9", "#e74c3c", "#95a5a6", "#27ae60"]
-    bar_offsets = np.array([-1.5, -0.5, 0.5, 1.5]) * 0.22
-    bar_width   = 0.20
-
-    fig, ax = plt.subplots(figsize=(max(10, n * 1.2), 5))
-
+    # Sort sectors: early → mid → late (stable: preserves YAML order within stage)
+    _STAGE_ORDER = {"early": 0, "mid": 1, "late": 2}
+    names = sorted(
+        sectors.keys(),
+        key=lambda nm: _STAGE_ORDER.get(sectors[nm].get("cycle_stage", "mid"), 1),
+    )
+    n = len(names)
     x = np.arange(n)
-    for j, (key, color) in enumerate(zip(
-        ["peak", "trough", "q5", "current"], bar_colors
-    )):
+
+    fig, ax = plt.subplots(figsize=(max(10, n * 1.0), 5))
+
+    # Zero line
+    ax.axhline(0, color="black", linewidth=0.8, linestyle="--", alpha=0.5, zorder=1)
+
+    # 4 series lines
+    line_spec = [
+        ("peak",    "直近ピーク",     "#2980b9", 1.3, "o", 4,  0.75),
+        ("trough",  "直近ボトム",     "#e74c3c", 1.3, "s", 4,  0.75),
+        ("q4",      "4四半期前",      "#95a5a6", 1.3, "^", 4,  0.75),
+        ("current", "現在",           "#27ae60", 2.4, "o", 7,  1.0),
+    ]
+    for key, label, color, lw, marker, ms, alpha in line_spec:
         vals = [sectors[nm].get(key, float("nan")) for nm in names]
-        ax.bar(x + bar_offsets[j], vals, bar_width,
-               label=bar_labels[j], color=color, alpha=0.85)
+        ax.plot(x, vals, color=color, linewidth=lw, marker=marker,
+                markersize=ms, label=label, alpha=alpha, zorder=2)
 
-    ax.axhline(0, color="black", linewidth=0.8)
-
-    # Recovery score annotation on "現在" bar
+    # Recovery score annotations on "現在" points
     for i, nm in enumerate(names):
-        rs = sectors[nm].get("recovery_score", float("nan"))
-        if np.isnan(rs):
+        rs          = sectors[nm].get("recovery_score", float("nan"))
+        current_val = sectors[nm].get("current", float("nan"))
+        if np.isnan(rs) or np.isnan(current_val):
             continue
-        current_val = sectors[nm].get("current", 0.0)
-        x_pos = x[i] + bar_offsets[3]  # "現在" bar offset
         y_dir = 1 if current_val >= 0 else -1
         ax.annotate(
             f"{rs:.0f}pt",
-            xy=(x_pos, current_val),
-            xytext=(0, y_dir * 5),
+            xy=(x[i], current_val),
+            xytext=(0, y_dir * 6),
             textcoords="offset points",
             ha="center",
             va="bottom" if y_dir > 0 else "top",
@@ -553,12 +561,45 @@ def plot_sector_snapshot(
 
     ax.set_xticks(x)
     ax.set_xticklabels(names, rotation=40, ha="right", fontsize=8)
-    ax.set_ylabel("バランス / YoY (%)", fontsize=9)
+    ax.set_ylabel("バランス / YoY (%pt)", fontsize=9)
     sector_note = data.get("sector_note", "出荷在庫バランス")
-    ax.set_title(f"{country} — セクター別在庫循環スナップショット ({sector_note})",
-                 fontsize=10, fontweight="bold")
+    ax.set_title(
+        f"{country} — セクター別在庫循環スナップショット ({sector_note})",
+        fontsize=10, fontweight="bold",
+    )
     ax.legend(fontsize=8, loc="upper right")
     ax.grid(axis="y", alpha=0.3)
+
+    # Background shading by cycle_stage (after autoscale, x in data / y in axes fraction)
+    _STAGE_BG    = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
+    _STAGE_LABEL = {"early": "Early", "mid": "Mid", "late": "Late"}
+    xform = ax.get_xaxis_transform()
+
+    prev_stage = None
+    seg_start  = 0
+    segments: list[tuple[int, int, str]] = []
+    for i, nm in enumerate(names):
+        stage = sectors[nm].get("cycle_stage", "mid")
+        if stage != prev_stage:
+            if prev_stage is not None:
+                segments.append((seg_start, i, prev_stage))
+            seg_start  = i
+            prev_stage = stage
+    if prev_stage is not None:
+        segments.append((seg_start, n, prev_stage))
+
+    for seg_s, seg_e, stage in segments:
+        color = _STAGE_BG.get(stage, "#888888")
+        ax.axvspan(seg_s - 0.5, seg_e - 0.5, color=color, alpha=0.07, zorder=0)
+        label_x = (seg_s + seg_e - 1) / 2
+        ax.text(
+            label_x, 0.98,
+            _STAGE_LABEL.get(stage, stage),
+            ha="center", va="top", fontsize=7,
+            color=color, alpha=0.9,
+            transform=xform,
+        )
+
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
@@ -603,7 +644,7 @@ def run(
             df = pd.DataFrame.from_dict(sectors, orient="index")
             df.index.name = "sector"
         else:
-            df = pd.DataFrame(columns=["peak", "trough", "q5", "current", "recovery_score"])
+            df = pd.DataFrame(columns=["peak", "trough", "q4", "current", "recovery_score"])
             df.index.name = "sector"
         d["df_sectors"] = df
 

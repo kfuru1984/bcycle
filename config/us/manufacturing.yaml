@@ -28,42 +28,52 @@ aggregate:
     fred:
       series_id: "BSCICP02USM460S"
 
+# cycle_stage: early=基礎素材・中間財, mid=資本財・電子, late=最終消費財
 sectors:
   - id: primary_metals
     name_ja: 一次金属
     fred:
       series_id: "IPG331S"
+    cycle_stage: early
   - id: fabricated_metals
     name_ja: 金属製品
     fred:
       series_id: "IPG332S"
+    cycle_stage: early
   - id: chemicals
     name_ja: 石油化学・化学
     fred:
       series_id: "IPG325S"
+    cycle_stage: early
   - id: paper
     name_ja: 紙製品
     fred:
       series_id: "IPG322S"
+    cycle_stage: early
   - id: plastics_rubber
     name_ja: プラスチック・ゴム
     fred:
       series_id: "IPG326S"
+    cycle_stage: early
   - id: machinery
     name_ja: 一般機械
     fred:
       series_id: "IPG333S"
+    cycle_stage: mid
   - id: computers_electronics
     name_ja: コンピューター・電子機器
     fred:
       series_id: "IPG334S"
+    cycle_stage: mid
   - id: electrical_equipment
     name_ja: 電気機械
     fred:
       series_id: "IPG335S"
+    cycle_stage: mid
   - id: transport_equipment
     name_ja: 輸送機械
     fred:
       series_id: "IPG336S"
+    cycle_stage: late
 
 notes: "US sectors use IP production YoY as 出荷在庫バランス proxy (no sector-level shipments/inventories on FRED)"
