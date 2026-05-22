@@ -505,7 +505,7 @@ def plot_sector_snapshot(
     data: dict,
     output_path: Path,
 ) -> None:
-    """Sector snapshot line chart: peak / trough / Q-4 / current per sector."""
+    """Sector snapshot: floating range bars + red polylines (Mizuho-style)."""
     _set_jp_font()
     sectors = data.get("sectors", {})
     if not sectors:
@@ -523,54 +523,14 @@ def plot_sector_snapshot(
     n = len(names)
     x = np.arange(n)
 
+    peaks    = np.array([sectors[nm].get("peak",    float("nan")) for nm in names])
+    troughs  = np.array([sectors[nm].get("trough",  float("nan")) for nm in names])
+    q4_vals  = np.array([sectors[nm].get("q4",      float("nan")) for nm in names])
+    cur_vals = np.array([sectors[nm].get("current", float("nan")) for nm in names])
+
     fig, ax = plt.subplots(figsize=(max(10, n * 1.0), 5))
 
-    # Zero line
-    ax.axhline(0, color="black", linewidth=0.8, linestyle="--", alpha=0.5, zorder=1)
-
-    # 4 series lines
-    line_spec = [
-        ("peak",    "直近ピーク",     "#2980b9", 1.3, "o", 4,  0.75),
-        ("trough",  "直近ボトム",     "#e74c3c", 1.3, "s", 4,  0.75),
-        ("q4",      "4四半期前",      "#95a5a6", 1.3, "^", 4,  0.75),
-        ("current", "現在",           "#27ae60", 2.4, "o", 7,  1.0),
-    ]
-    for key, label, color, lw, marker, ms, alpha in line_spec:
-        vals = [sectors[nm].get(key, float("nan")) for nm in names]
-        ax.plot(x, vals, color=color, linewidth=lw, marker=marker,
-                markersize=ms, label=label, alpha=alpha, zorder=2)
-
-    # Recovery score annotations on "現在" points
-    for i, nm in enumerate(names):
-        rs          = sectors[nm].get("recovery_score", float("nan"))
-        current_val = sectors[nm].get("current", float("nan"))
-        if np.isnan(rs) or np.isnan(current_val):
-            continue
-        y_dir = 1 if current_val >= 0 else -1
-        ax.annotate(
-            f"{rs:.0f}pt",
-            xy=(x[i], current_val),
-            xytext=(0, y_dir * 6),
-            textcoords="offset points",
-            ha="center",
-            va="bottom" if y_dir > 0 else "top",
-            fontsize=7,
-            color="#0a3d0a",
-            fontweight="bold",
-        )
-
-    ax.set_xticks(x)
-    ax.set_xticklabels(names, rotation=40, ha="right", fontsize=8)
-    ax.set_ylabel("バランス / YoY (%pt)", fontsize=9)
-    sector_note = data.get("sector_note", "出荷在庫バランス")
-    ax.set_title(
-        f"{country} — セクター別在庫循環スナップショット ({sector_note})",
-        fontsize=10, fontweight="bold",
-    )
-    ax.legend(fontsize=8, loc="upper right")
-    ax.grid(axis="y", alpha=0.3)
-
-    # Background shading by cycle_stage (after autoscale, x in data / y in axes fraction)
+    # ── 0. cycle_stage background shading ────────────────────────────────
     _STAGE_BG    = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
     _STAGE_LABEL = {"early": "Early", "mid": "Mid", "late": "Late"}
     xform = ax.get_xaxis_transform()
@@ -591,14 +551,66 @@ def plot_sector_snapshot(
     for seg_s, seg_e, stage in segments:
         color = _STAGE_BG.get(stage, "#888888")
         ax.axvspan(seg_s - 0.5, seg_e - 0.5, color=color, alpha=0.07, zorder=0)
-        label_x = (seg_s + seg_e - 1) / 2
         ax.text(
-            label_x, 0.98,
+            (seg_s + seg_e - 1) / 2, 0.98,
             _STAGE_LABEL.get(stage, stage),
-            ha="center", va="top", fontsize=7,
-            color=color, alpha=0.9,
+            ha="center", va="top", fontsize=7, color=color, alpha=0.9,
             transform=xform,
         )
+
+    # ── 1. Floating range bars (trough → peak, water-blue) ───────────────
+    for i in range(n):
+        p, b = peaks[i], troughs[i]
+        if not (np.isnan(p) or np.isnan(b)):
+            ax.bar(x[i], height=p - b, bottom=b,
+                   color="#93c5fd", alpha=0.3, width=0.65, zorder=1)
+
+    # ── 2. Zero line ──────────────────────────────────────────────────────
+    ax.axhline(0, color="black", linewidth=0.8, zorder=2)
+
+    # ── 3. Peak / trough open-circle markers ─────────────────────────────
+    ax.scatter(x, peaks,   s=40, facecolor="white", edgecolor="#2563eb",
+               linewidths=1.5, zorder=4, label="直近ピーク")
+    ax.scatter(x, troughs, s=40, facecolor="white", edgecolor="#dc2626",
+               linewidths=1.5, zorder=4, label="直近ボトム")
+
+    # ── 4. Red polylines: Q-4 (small) and current (large) ────────────────
+    ax.plot(x, q4_vals,  color="#dc2626", linewidth=1.2,
+            marker="o", markersize=5, zorder=5, label="4四半期前")
+    ax.plot(x, cur_vals, color="#dc2626", linewidth=1.8,
+            marker="o", markersize=9, zorder=6, label="現在",
+            markeredgecolor="#7f1d1d", markeredgewidth=0.8)
+
+    # ── 5. Recovery score annotations on current points ──────────────────
+    for i, nm in enumerate(names):
+        rs = sectors[nm].get("recovery_score", float("nan"))
+        cv = cur_vals[i]
+        if np.isnan(rs) or np.isnan(cv):
+            continue
+        y_dir = 1 if cv >= 0 else -1
+        ax.annotate(
+            f"{rs:.0f}pt",
+            xy=(x[i], cv),
+            xytext=(0, y_dir * 7),
+            textcoords="offset points",
+            ha="center",
+            va="bottom" if y_dir > 0 else "top",
+            fontsize=7,
+            color="#14532d",
+            fontweight="bold",
+        )
+
+    # ── 6. Axes, labels, legend ───────────────────────────────────────────
+    ax.set_xticks(x)
+    ax.set_xticklabels(names, rotation=40, ha="right", fontsize=8)
+    ax.set_ylabel("バランス / YoY (%pt)", fontsize=9)
+    sector_note = data.get("sector_note", "出荷在庫バランス")
+    ax.set_title(
+        f"{country} — セクター別在庫循環スナップショット ({sector_note})",
+        fontsize=10, fontweight="bold",
+    )
+    ax.legend(fontsize=8, loc="upper right")
+    ax.grid(axis="y", alpha=0.3)
 
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
