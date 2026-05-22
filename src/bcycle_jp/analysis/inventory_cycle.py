@@ -528,12 +528,10 @@ def plot_sector_snapshot(
     q4_vals  = np.array([sectors[nm].get("q4",      float("nan")) for nm in names])
     cur_vals = np.array([sectors[nm].get("current", float("nan")) for nm in names])
 
-    fig, ax = plt.subplots(figsize=(max(10, n * 1.0), 5))
+    fig, ax = plt.subplots(figsize=(max(12, n * 1.1), 6))
 
-    # ── 0. cycle_stage background shading ────────────────────────────────
-    _STAGE_BG    = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
-    _STAGE_LABEL = {"early": "Early", "mid": "Mid", "late": "Late"}
-    xform = ax.get_xaxis_transform()
+    # ── 0. cycle_stage background shading (no text labels — keep shading only) ──
+    _STAGE_BG = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
 
     prev_stage = None
     seg_start  = 0
@@ -549,37 +547,31 @@ def plot_sector_snapshot(
         segments.append((seg_start, n, prev_stage))
 
     for seg_s, seg_e, stage in segments:
-        color = _STAGE_BG.get(stage, "#888888")
-        ax.axvspan(seg_s - 0.5, seg_e - 0.5, color=color, alpha=0.07, zorder=0)
-        ax.text(
-            (seg_s + seg_e - 1) / 2, 0.98,
-            _STAGE_LABEL.get(stage, stage),
-            ha="center", va="top", fontsize=7, color=color, alpha=0.9,
-            transform=xform,
-        )
+        ax.axvspan(seg_s - 0.5, seg_e - 0.5,
+                   color=_STAGE_BG.get(stage, "#888888"), alpha=0.07, zorder=0)
 
     # ── 1. Floating range bars (trough → peak, water-blue) ───────────────
     for i in range(n):
         p, b = peaks[i], troughs[i]
         if not (np.isnan(p) or np.isnan(b)):
             ax.bar(x[i], height=p - b, bottom=b,
-                   color="#93c5fd", alpha=0.3, width=0.65, zorder=1)
+                   color="#93c5fd", alpha=0.45, width=0.8, zorder=1,
+                   linewidth=0)
 
     # ── 2. Zero line ──────────────────────────────────────────────────────
     ax.axhline(0, color="black", linewidth=0.8, zorder=2)
 
-    # ── 3. Peak / trough open-circle markers ─────────────────────────────
-    ax.scatter(x, peaks,   s=40, facecolor="white", edgecolor="#2563eb",
-               linewidths=1.5, zorder=4, label="直近ピーク")
-    ax.scatter(x, troughs, s=40, facecolor="white", edgecolor="#dc2626",
-               linewidths=1.5, zorder=4, label="直近ボトム")
+    # ── 3. Peak / trough open-circle markers (on bar edges) ──────────────
+    ax.scatter(x, peaks,   s=70, facecolor="white", edgecolor="#1d4ed8",
+               linewidths=2.0, zorder=4, label="直近ピーク")
+    ax.scatter(x, troughs, s=70, facecolor="white", edgecolor="#dc2626",
+               linewidths=2.0, zorder=4, label="直近ボトム")
 
-    # ── 4. Red polylines: Q-4 (small) and current (large) ────────────────
-    ax.plot(x, q4_vals,  color="#dc2626", linewidth=1.2,
-            marker="o", markersize=5, zorder=5, label="4四半期前")
+    # ── 4. Red polylines: Q-4 (small ●) and current (large ●) ───────────
+    ax.plot(x, q4_vals,  color="#dc2626", linewidth=1.3,
+            marker="o", markersize=6,  zorder=5, label="4四半期前")
     ax.plot(x, cur_vals, color="#dc2626", linewidth=1.8,
-            marker="o", markersize=9, zorder=6, label="現在",
-            markeredgecolor="#7f1d1d", markeredgewidth=0.8)
+            marker="o", markersize=10, zorder=6, label="現在")
 
     # ── 5. Recovery score annotations on current points ──────────────────
     for i, nm in enumerate(names):
@@ -591,7 +583,7 @@ def plot_sector_snapshot(
         ax.annotate(
             f"{rs:.0f}pt",
             xy=(x[i], cv),
-            xytext=(0, y_dir * 7),
+            xytext=(0, y_dir * 8),
             textcoords="offset points",
             ha="center",
             va="bottom" if y_dir > 0 else "top",
@@ -602,15 +594,17 @@ def plot_sector_snapshot(
 
     # ── 6. Axes, labels, legend ───────────────────────────────────────────
     ax.set_xticks(x)
-    ax.set_xticklabels(names, rotation=40, ha="right", fontsize=8)
-    ax.set_ylabel("バランス / YoY (%pt)", fontsize=9)
+    ax.set_xticklabels(names, rotation=90, ha="center", fontsize=8)
+    ax.set_ylabel("(%pt)", fontsize=9)
+    ax.yaxis.set_label_coords(-0.04, 1.02)
+    ax.yaxis.label.set_rotation(0)
     sector_note = data.get("sector_note", "出荷在庫バランス")
     ax.set_title(
         f"{country} — セクター別在庫循環スナップショット ({sector_note})",
         fontsize=10, fontweight="bold",
     )
     ax.legend(fontsize=8, loc="upper right")
-    ax.grid(axis="y", alpha=0.3)
+    ax.grid(axis="y", alpha=0.3, linewidth=0.5)
 
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
