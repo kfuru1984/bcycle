@@ -7,30 +7,30 @@
     "phase_changed": false,
     "top3_recovery": [
       {
-        "name": "輸送機械",
-        "score": 100.0
+        "name": "プラスチック製品",
+        "score": 67.8
       },
       {
         "name": "金属製品",
-        "score": 100.0
+        "score": 67.8
       },
       {
-        "name": "窯業・土石製品",
-        "score": 100.0
+        "name": "電子部品・デバイス",
+        "score": 63.2
       }
     ],
     "bot3_recovery": [
       {
-        "name": "石油・石炭製品",
-        "score": 43.1
+        "name": "汎用・業務用機械",
+        "score": 39.6
       },
       {
-        "name": "パルプ・紙・紙加工品",
-        "score": 61.8
+        "name": "鉄鋼・非鉄金属",
+        "score": 46.0
       },
       {
-        "name": "電子部品・デバイス",
-        "score": 69.1
+        "name": "化学工業（除．医薬品）",
+        "score": 49.7
       }
     ]
   },
@@ -41,30 +41,30 @@
     "phase_changed": false,
     "top3_recovery": [
       {
-        "name": "電気機械",
-        "score": 100.0
-      },
-      {
         "name": "コンピューター・電子機器",
-        "score": 96.4
+        "score": 84.0
       },
       {
-        "name": "一般機械",
-        "score": 93.3
+        "name": "電気機械",
+        "score": 59.0
+      },
+      {
+        "name": "紙製品",
+        "score": 52.9
       }
     ],
     "bot3_recovery": [
       {
-        "name": "石油化学・化学",
-        "score": 0.0
+        "name": "輸送機械",
+        "score": 18.9
       },
       {
         "name": "プラスチック・ゴム",
-        "score": 40.6
+        "score": 20.2
       },
       {
-        "name": "紙製品",
-        "score": 60.5
+        "name": "一次金属",
+        "score": 20.3
       }
     ]
   }

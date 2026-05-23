@@ -94,12 +94,15 @@ def detect_phase(balance: pd.Series, window: int = 3) -> str:
         return "調整加速" if direction > 0 else "調整"
 
 
+_CYCLE_WINDOW = 60  # 5 years — current inventory cycle reference window
+
+
 def _sector_stats(series: pd.Series, months_back: int = 12) -> dict[str, float] | None:
-    """Peak, trough, Q-4 (12m ago), current over trailing 36-month window."""
+    """Peak, trough (60-month cycle window), Q-4 (12m ago), current."""
     clean = series.dropna()
     if len(clean) < 13:
         return None
-    window  = clean.iloc[-36:] if len(clean) >= 36 else clean
+    window  = clean.iloc[-_CYCLE_WINDOW:] if len(clean) >= _CYCLE_WINDOW else clean
     peak    = float(window.max())
     trough  = float(window.min())
     current = float(clean.iloc[-1])
@@ -107,7 +110,7 @@ def _sector_stats(series: pd.Series, months_back: int = 12) -> dict[str, float] 
     return {"peak": peak, "trough": trough, "q4": q4, "current": current}
 
 
-def find_peak_bottom(series: pd.Series, window: int = 36) -> tuple[float, float]:
+def find_peak_bottom(series: pd.Series, window: int = 60) -> tuple[float, float]:
     """Return (peak, bottom) over trailing window months."""
     clean = series.dropna()
     if clean.empty:
@@ -134,6 +137,16 @@ def calc_recovery_score(balance: pd.Series) -> float:
     if denom == 0.0:
         return float("nan")
     return (float(clean.iloc[-1]) - bottom) / denom * 100.0
+
+
+def _quarterly_series(series: pd.Series, n_quarters: int = 6) -> list[float]:
+    """Sample monthly series at quarterly intervals: [Q-5, Q-4, ..., Q0]."""
+    clean = series.dropna()
+    result: list[float] = []
+    for q in range(n_quarters - 1, -1, -1):  # q=5 → 0
+        offset = q * 3 + 1  # 16, 13, 10, 7, 4, 1
+        result.append(float(clean.iloc[-offset]) if len(clean) >= offset else float("nan"))
+    return result
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -184,6 +197,7 @@ def load_jp(start: date = date(2018, 1, 1)) -> dict[str, Any]:
                 if st is not None:
                     st["recovery_score"] = calc_recovery_score(bal)
                     st["cycle_stage"]    = sec.get("cycle_stage", "mid")
+                    st["quarterly"]      = _quarterly_series(bal)
                     sectors[sec["name_ja"]] = st
             except Exception as exc:
                 log.warning("JP sector %s skipped: %s", sec["name_ja"], exc)
@@ -228,6 +242,7 @@ def load_us(start: date = date(2000, 1, 1)) -> dict[str, Any]:
                 if st is not None:
                     st["recovery_score"] = calc_recovery_score(yoy)
                     st["cycle_stage"]    = sec.get("cycle_stage", "mid")
+                    st["quarterly"]      = _quarterly_series(yoy)
                     sectors[sec["name_ja"]] = st
             except Exception as exc:
                 log.warning("US sector %s skipped: %s", sec["name_ja"], exc)
@@ -505,7 +520,7 @@ def plot_sector_snapshot(
     data: dict,
     output_path: Path,
 ) -> None:
-    """Sector snapshot: floating range bars + red polylines (Mizuho-style)."""
+    """Sector snapshot: per-sector sparklines (Q-5→Q0) inside cycle range bars."""
     _set_jp_font()
     sectors = data.get("sectors", {})
     if not sectors:
@@ -514,7 +529,6 @@ def plot_sector_snapshot(
 
     country = data.get("country", "??")
 
-    # Sort sectors: early → mid → late (stable: preserves YAML order within stage)
     _STAGE_ORDER = {"early": 0, "mid": 1, "late": 2}
     names = sorted(
         sectors.keys(),
@@ -523,15 +537,14 @@ def plot_sector_snapshot(
     n = len(names)
     x = np.arange(n)
 
-    peaks    = np.array([sectors[nm].get("peak",    float("nan")) for nm in names])
-    troughs  = np.array([sectors[nm].get("trough",  float("nan")) for nm in names])
-    q4_vals  = np.array([sectors[nm].get("q4",      float("nan")) for nm in names])
-    cur_vals = np.array([sectors[nm].get("current", float("nan")) for nm in names])
+    peaks   = np.array([sectors[nm].get("peak",   float("nan")) for nm in names])
+    troughs = np.array([sectors[nm].get("trough", float("nan")) for nm in names])
 
     fig, ax = plt.subplots(figsize=(max(12, n * 1.1), 6))
 
-    # ── 0. cycle_stage background shading (no text labels — keep shading only) ──
-    _STAGE_BG = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
+    # ── 0. cycle_stage background shading ────────────────────────────────
+    _STAGE_BG     = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
+    _STAGE_LABELS = {"early": "早サイクル", "mid": "中サイクル", "late": "晩サイクル"}
 
     prev_stage = None
     seg_start  = 0
@@ -550,49 +563,53 @@ def plot_sector_snapshot(
         ax.axvspan(seg_s - 0.5, seg_e - 0.5,
                    color=_STAGE_BG.get(stage, "#888888"), alpha=0.07, zorder=0)
 
-    # ── 1. Floating range bars (trough → peak, water-blue) ───────────────
+    # ── 1. Floating range bars (trough → peak, light blue) ───────────────
     for i in range(n):
         p, b = peaks[i], troughs[i]
         if not (np.isnan(p) or np.isnan(b)):
             ax.bar(x[i], height=p - b, bottom=b,
-                   color="#93c5fd", alpha=0.45, width=0.8, zorder=1,
+                   color="#93c5fd", alpha=0.50, width=0.8, zorder=1,
                    linewidth=0)
 
     # ── 2. Zero line ──────────────────────────────────────────────────────
     ax.axhline(0, color="black", linewidth=0.8, zorder=2)
 
-    # ── 3. Peak / trough open-circle markers (on bar edges) ──────────────
-    ax.scatter(x, peaks,   s=70, facecolor="white", edgecolor="#1d4ed8",
-               linewidths=2.0, zorder=4, label="直近ピーク")
-    ax.scatter(x, troughs, s=70, facecolor="white", edgecolor="#dc2626",
-               linewidths=2.0, zorder=4, label="直近ボトム")
-
-    # ── 4. Red polylines: Q-4 (small ●) and current (large ●) ───────────
-    ax.plot(x, q4_vals,  color="#dc2626", linewidth=1.3,
-            marker="o", markersize=6,  zorder=5, label="4四半期前")
-    ax.plot(x, cur_vals, color="#dc2626", linewidth=1.8,
-            marker="o", markersize=10, zorder=6, label="現在")
-
-    # ── 5. Recovery score annotations on current points ──────────────────
+    # ── 3. Per-sector sparklines (Q-5 → Q0) inside each bar ──────────────
     for i, nm in enumerate(names):
-        rs = sectors[nm].get("recovery_score", float("nan"))
-        cv = cur_vals[i]
-        if np.isnan(rs) or np.isnan(cv):
+        qvals = sectors[nm].get("quarterly", [])
+        if not qvals or len(qvals) < 2:
             continue
-        y_dir = 1 if cv >= 0 else -1
-        ax.annotate(
-            f"{rs:.0f}pt",
-            xy=(x[i], cv),
-            xytext=(0, y_dir * 8),
-            textcoords="offset points",
-            ha="center",
-            va="bottom" if y_dir > 0 else "top",
-            fontsize=7,
-            color="#14532d",
-            fontweight="bold",
-        )
+        nq = len(qvals)
+        xq = np.linspace(x[i] - 0.35, x[i] + 0.35, nq)
+        yq = np.array(qvals, dtype=float)
+        mask = ~np.isnan(yq)
+        if mask.sum() < 2:
+            continue
 
-    # ── 6. Axes, labels, legend ───────────────────────────────────────────
+        # Sparkline
+        ax.plot(xq, np.where(mask, yq, np.nan),
+                color="#1e3a5f", linewidth=1.6, zorder=5,
+                marker="o", markersize=3,
+                markerfacecolor="#1e3a5f", markeredgewidth=0)
+
+        # Highlight Q0 (current) with larger filled circle
+        if mask[-1]:
+            ax.scatter([xq[-1]], [yq[-1]], s=55, color="#1e3a5f",
+                       zorder=6, linewidths=0)
+
+        # Recovery score annotation to the right of Q0
+        rs = sectors[nm].get("recovery_score", float("nan"))
+        if not np.isnan(rs) and mask[-1]:
+            ax.annotate(
+                f"{rs:.0f}",
+                xy=(xq[-1], float(yq[-1])),
+                xytext=(4, 0),
+                textcoords="offset points",
+                ha="left", va="center",
+                fontsize=7, color="#14532d", fontweight="bold",
+            )
+
+    # ── 4. Axes and labels ────────────────────────────────────────────────
     ax.set_xticks(x)
     ax.set_xticklabels(names, rotation=90, ha="center", fontsize=8)
     ax.set_ylabel("(%pt)", fontsize=9)
@@ -603,8 +620,17 @@ def plot_sector_snapshot(
         f"{country} — セクター別在庫循環スナップショット ({sector_note})",
         fontsize=10, fontweight="bold",
     )
-    ax.legend(fontsize=8, loc="upper right")
     ax.grid(axis="y", alpha=0.3, linewidth=0.5)
+
+    # Stage legend
+    seen_stages = {sectors[nm].get("cycle_stage", "mid") for nm in names}
+    for stage in ["early", "mid", "late"]:
+        if stage in seen_stages:
+            ax.plot([], [], color=_STAGE_BG[stage], linewidth=8, alpha=0.5,
+                    label=_STAGE_LABELS[stage])
+    ax.plot([], [], color="#1e3a5f", linewidth=1.6, marker="o", markersize=4,
+            label="Q-5→Q0 推移")
+    ax.legend(fontsize=8, loc="upper right")
 
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -643,14 +669,17 @@ def run(
         if not d["ok"]:
             log.warning("%s load failed: %s", c.upper(), d.get("error"))
 
-    # Build df_sectors per country (includes recovery_score column)
+    # Build df_sectors per country — exclude list/str cols (quarterly, cycle_stage)
+    _SECTOR_DF_COLS = ["peak", "trough", "q4", "current", "recovery_score"]
     for d in all_data.values():
         sectors = d.get("sectors", {})
         if sectors:
-            df = pd.DataFrame.from_dict(sectors, orient="index")
+            rows = {nm: {k: s.get(k, float("nan")) for k in _SECTOR_DF_COLS}
+                    for nm, s in sectors.items()}
+            df = pd.DataFrame.from_dict(rows, orient="index")
             df.index.name = "sector"
         else:
-            df = pd.DataFrame(columns=["peak", "trough", "q4", "current", "recovery_score"])
+            df = pd.DataFrame(columns=_SECTOR_DF_COLS)
             df.index.name = "sector"
         d["df_sectors"] = df
 
