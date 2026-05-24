@@ -706,6 +706,15 @@ footer{text-align:center;margin-top:20px;padding:12px 0;
                  letter-spacing:2px;color:#475569;border-bottom:1px solid #0f172a}
 .inv-chart img{width:100%;display:block}
 .inv-chart-missing{padding:24px;text-align:center;color:#334155;font-size:.78rem}
+.inv-phase-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.inv-phase-badge{background:#1e293b;border:1px solid #334155;border-radius:20px;
+                 padding:4px 14px;font-size:.75rem;color:#94a3b8;font-weight:600}
+.inv-narrative{background:#0f172a;border-left:3px solid #3b82f6;border-radius:0 8px 8px 0;
+               padding:12px 16px;margin-bottom:16px}
+.inv-narrative-label{font-size:.6rem;font-weight:700;letter-spacing:2px;
+                     text-transform:uppercase;color:#3b82f6;margin-right:10px}
+.inv-narrative-date{font-size:.65rem;color:#475569}
+.inv-narrative p{margin:.6rem 0 0;font-size:.82rem;color:#94a3b8;line-height:1.7}
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media(max-width:900px){
@@ -778,6 +787,17 @@ INV_COUNTRIES_SECTOR = ["jp", "us"]
 INV_LABELS           = {"jp": "日本", "us": "米国", "eu": "ユーロ圏", "cn": "中国"}
 
 
+def _load_inv_cycle_summary() -> dict:
+    p = ROOT / "data" / "inv_cycle_summary.json"
+    if not p.exists():
+        return {}
+    try:
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
 def _build_inv_cycle_section() -> str:
     """在庫循環分析セクションの HTML を構築する。"""
 
@@ -793,6 +813,37 @@ def _build_inv_cycle_section() -> str:
             f'{inner}'
             f'</div>'
         )
+
+    inv_summary = _load_inv_cycle_summary()
+
+    # LLM narrative block
+    narrative = inv_summary.get("narrative", "")
+    generated_at = inv_summary.get("generated_at", "")
+    if narrative:
+        narrative_html = (
+            f'<div class="inv-narrative">'
+            f'<span class="inv-narrative-label">AI解釈</span>'
+            f'<span class="inv-narrative-date">{generated_at}</span>'
+            f'<p>{narrative}</p>'
+            f'</div>'
+        )
+    else:
+        narrative_html = ""
+
+    # Phase badge row (JP / US)
+    phase_badges = []
+    for c in ["JP", "US"]:
+        d = inv_summary.get(c, {})
+        if d.get("ok"):
+            phase = d.get("phase", "—")
+            changed = " ★" if d.get("phase_changed") else ""
+            phase_badges.append(
+                f'<span class="inv-phase-badge">{c}: {phase}{changed}</span>'
+            )
+    phase_row_html = (
+        '<div class="inv-phase-row">' + "".join(phase_badges) + "</div>"
+        if phase_badges else ""
+    )
 
     # Global activity comparison
     global_uri = _b64(ROOT / "data" / "inv_cycle_activity.png")
@@ -826,6 +877,8 @@ def _build_inv_cycle_section() -> str:
     return (
         '<div class="inv-section">\n'
         '<div class="inv-section-header">在庫循環分析</div>\n'
+        + phase_row_html + "\n"
+        + narrative_html + "\n"
         + global_html + "\n"
         + ts_html + "\n"
         + sector_html + "\n"

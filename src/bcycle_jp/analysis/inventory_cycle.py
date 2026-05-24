@@ -312,6 +312,99 @@ _LOADERS = {"jp": load_jp, "us": load_us, "eu": load_eu, "cn": load_cn}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# LLM Narrative
+# ─────────────────────────────────────────────────────────────────────────────
+
+_PHASE_DEFS = """\
+在庫循環の4フェーズ定義:
+  積み増し加速: 出荷在庫バランス > 0 かつ前月比改善（ピークに向かう局面）
+  積み増し:     出荷在庫バランス > 0 かつ前月比悪化（ピーク通過後の鈍化）
+  調整加速:     出荷在庫バランス < 0 かつ前月比改善（ボトムからの回復局面）
+  調整:         出荷在庫バランス < 0 かつ前月比悪化（調整進行中）
+回復スコア: 0pt=サイクルボトム、100pt=サイクルピーク、100超=ピーク更新中"""
+
+_STAGE_JA = {"early": "早サイクル", "mid": "中サイクル", "late": "晩サイクル"}
+
+
+def _generate_inv_cycle_narrative(summary: dict, all_data: dict) -> str:
+    """Claude Sonnet でJP/US在庫循環の現状解釈を生成。失敗時はテンプレートで代替。"""
+    import os
+
+    def _build_country_block(c: str) -> str:
+        d = summary.get(c, {})
+        if not d.get("ok"):
+            return ""
+        phase   = d.get("phase", "不明")
+        changed = "（前回から変化あり）" if d.get("phase_changed") else ""
+        top3    = d.get("top3_recovery", [])
+        bot3    = d.get("bot3_recovery", [])
+        top_str = "、".join(f"{x['name']}({x['score']:.0f}pt)" for x in top3) or "(なし)"
+        bot_str = "、".join(f"{x['name']}({x['score']:.0f}pt)" for x in bot3) or "(なし)"
+
+        # サイクルステージ別平均回復スコア
+        sectors = all_data.get(c, {}).get("sectors", {})
+        stage_buckets: dict[str, list[float]] = {"early": [], "mid": [], "late": []}
+        for st in sectors.values():
+            sg = st.get("cycle_stage", "mid")
+            rs = st.get("recovery_score", float("nan"))
+            if not np.isnan(rs):
+                stage_buckets[sg].append(rs)
+        stage_parts = [
+            f"{_STAGE_JA[sg]}平均{sum(v)/len(v):.0f}pt"
+            for sg, v in stage_buckets.items() if v
+        ]
+        stage_str = "、".join(stage_parts)
+
+        lines = [
+            f"{c}: フェーズ={phase}{changed}",
+            f"  回復スコア上位: {top_str}",
+            f"  回復スコア下位: {bot_str}",
+        ]
+        if stage_str:
+            lines.append(f"  ステージ別平均: {stage_str}")
+        return "\n".join(lines)
+
+    country_blocks = [b for c in ["JP", "US"] if (b := _build_country_block(c))]
+    data_str = "\n\n".join(country_blocks)
+
+    prompt = f"""あなたはマクロ経済アナリストです。以下の在庫循環データからJP・US両市場の現状局面と業種間格差を日本語で3〜4文で解釈してください。数値を適切に引用し、専門的かつ簡潔に記述してください。
+
+{_PHASE_DEFS}
+
+現状データ:
+{data_str}
+
+出力は純粋なテキストのみ（マークダウン・箇条書き不要）。"""
+
+    try:
+        import anthropic as _anthropic
+        api_key = os.environ.get("ANTHROPIC_API_KEY") or ""
+        if not api_key:
+            raise ValueError("ANTHROPIC_API_KEY not set")
+        client = _anthropic.Anthropic(api_key=api_key)
+        resp = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=400,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = resp.content[0].text.strip()
+        log.info("在庫循環ナラティブ生成完了 (%d chars)", len(text))
+        return text
+    except Exception as exc:
+        log.warning("在庫循環ナラティブ生成失敗: %s — テンプレートで代替", exc)
+        parts = []
+        for c in ["JP", "US"]:
+            d = summary.get(c, {})
+            if d.get("ok"):
+                phase   = d.get("phase", "不明")
+                top     = d.get("top3_recovery", [{}])
+                top_nm  = top[0].get("name", "") if top else ""
+                top_sc  = top[0].get("score", 0)  if top else 0
+                parts.append(f"{c}の在庫循環は{phase}フェーズ（回復スコア最上位: {top_nm} {top_sc:.0f}pt）")
+        return "。".join(parts) + "。" if parts else "データなし"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Summary JSON
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -363,6 +456,8 @@ def _save_inv_cycle_summary(all_data: dict[str, dict], data_dir: Path) -> None:
             "top3_recovery": top3,
             "bot3_recovery": bot3,
         }
+
+    summary["narrative"] = _generate_inv_cycle_narrative(summary, all_data)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:

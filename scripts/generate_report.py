@@ -194,11 +194,14 @@ def inv_cycle_section_md(summary: dict) -> str:
 
     score_block = "\n\n".join(score_parts) if score_parts else "*(業種別データなし)*"
 
+    narrative = summary.get("narrative", "")
+    narrative_block = f"\n### AI解釈\n\n{narrative}\n" if narrative else ""
+
     return f"""\
 ## 在庫循環分析
 
 *データ生成: {generated_at}*
-
+{narrative_block}
 ### フェーズ判定
 
 {phase_table}
