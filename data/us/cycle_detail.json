@@ -2,9 +2,9 @@
   "ok": true,
   "country": "US",
   "as_of": "2026-04",
-  "stage": "上昇",
-  "level": 51.6,
-  "momentum": 0.36,
+  "stage": "下降",
+  "level": 46.7,
+  "momentum": -0.06,
   "cb_stance": "中立",
   "cb_detail": "実質金利 +0.7% / YC +0.52%",
   "real_policy_rate": 0.65,
@@ -12,15 +12,6 @@
   "real_wage_yoy": 0.58,
   "core_cpi_yoy": 2.99,
   "top3_level": [
-    {
-      "id": "housing_starts_yoy",
-      "name_ja": "住宅着工件数 YoY",
-      "category": "housing",
-      "percentile": 80.8,
-      "z": 0.58,
-      "value": 10.849,
-      "transform": "yoy_pct"
-    },
     {
       "id": "real_policy_rate",
       "name_ja": "実質政策金利(FF-コアCPI)",
@@ -38,6 +29,15 @@
       "z": 0.27,
       "value": 1.353,
       "transform": "yoy_pct"
+    },
+    {
+      "id": "housing_starts_yoy",
+      "name_ja": "住宅着工件数 YoY",
+      "category": "housing",
+      "percentile": 63.3,
+      "z": 0.14,
+      "value": 4.643,
+      "transform": "yoy_pct"
     }
   ],
   "top3_momentum": [
@@ -45,9 +45,9 @@
       "id": "consumer_confidence",
       "name_ja": "消費者信頼感(ミシガン大学)",
       "category": "consumption",
-      "percentile": 5.8,
-      "z": -1.57,
-      "value": 53.3,
+      "percentile": 0.8,
+      "z": -1.75,
+      "value": 49.8,
       "transform": "level"
     },
     {
@@ -60,12 +60,12 @@
       "transform": "derived"
     },
     {
-      "id": "housing_starts_yoy",
-      "name_ja": "住宅着工件数 YoY",
-      "category": "housing",
-      "percentile": 80.8,
-      "z": 0.58,
-      "value": 10.849,
+      "id": "nfp_yoy",
+      "name_ja": "非農業部門雇用者数 YoY",
+      "category": "labor",
+      "percentile": 13.3,
+      "z": -0.28,
+      "value": 0.158,
       "transform": "yoy_pct"
     }
   ],
@@ -101,9 +101,9 @@
       "id": "housing_starts_yoy",
       "name_ja": "住宅着工件数 YoY",
       "category": "housing",
-      "percentile": 80.8,
-      "z": 0.58,
-      "value": 10.849,
+      "percentile": 63.3,
+      "z": 0.14,
+      "value": 4.643,
       "transform": "yoy_pct"
     },
     "core_cpi_yoy": {
@@ -137,9 +137,9 @@
       "id": "consumer_confidence",
       "name_ja": "消費者信頼感(ミシガン大学)",
       "category": "consumption",
-      "percentile": 5.8,
-      "z": -1.57,
-      "value": 53.3,
+      "percentile": 0.8,
+      "z": -1.75,
+      "value": 49.8,
       "transform": "level"
     }
   }
