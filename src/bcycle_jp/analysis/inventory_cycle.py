@@ -615,7 +615,10 @@ def plot_sector_snapshot(
     data: dict,
     output_path: Path,
 ) -> None:
-    """Sector snapshot: per-sector sparklines (Q-5→Q0) inside cycle range bars."""
+    """Sector snapshot: 2-panel layout.
+    Top: per-sector sparklines (Q-5→Q0) inside cycle range bars (%pt axis).
+    Bottom: recovery scores (0-100 axis, separate scale).
+    """
     _set_jp_font()
     sectors = data.get("sectors", {})
     if not sectors:
@@ -624,7 +627,10 @@ def plot_sector_snapshot(
 
     country = data.get("country", "??")
 
-    _STAGE_ORDER = {"early": 0, "mid": 1, "late": 2}
+    _STAGE_ORDER  = {"early": 0, "mid": 1, "late": 2}
+    _STAGE_BG     = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
+    _STAGE_LABELS = {"early": "早サイクル", "mid": "中サイクル", "late": "晩サイクル"}
+
     names = sorted(
         sectors.keys(),
         key=lambda nm: _STAGE_ORDER.get(sectors[nm].get("cycle_stage", "mid"), 1),
@@ -632,15 +638,18 @@ def plot_sector_snapshot(
     n = len(names)
     x = np.arange(n)
 
-    peaks   = np.array([sectors[nm].get("peak",   float("nan")) for nm in names])
-    troughs = np.array([sectors[nm].get("trough", float("nan")) for nm in names])
+    peaks   = np.array([sectors[nm].get("peak",           float("nan")) for nm in names])
+    troughs = np.array([sectors[nm].get("trough",         float("nan")) for nm in names])
+    scores  = np.array([sectors[nm].get("recovery_score", float("nan")) for nm in names])
 
-    fig, ax = plt.subplots(figsize=(max(12, n * 1.1), 6))
+    fig, (ax, ax_sc) = plt.subplots(
+        2, 1,
+        figsize=(max(12, n * 1.1), 8),
+        gridspec_kw={"height_ratios": [3, 1]},
+        sharex=True,
+    )
 
-    # ── 0. cycle_stage background shading ────────────────────────────────
-    _STAGE_BG     = {"early": "#3b82f6", "mid": "#f97316", "late": "#22c55e"}
-    _STAGE_LABELS = {"early": "早サイクル", "mid": "中サイクル", "late": "晩サイクル"}
-
+    # ── shared: cycle_stage background shading ───────────────────────────
     prev_stage = None
     seg_start  = 0
     segments: list[tuple[int, int, str]] = []
@@ -654,22 +663,26 @@ def plot_sector_snapshot(
     if prev_stage is not None:
         segments.append((seg_start, n, prev_stage))
 
-    for seg_s, seg_e, stage in segments:
-        ax.axvspan(seg_s - 0.5, seg_e - 0.5,
-                   color=_STAGE_BG.get(stage, "#888888"), alpha=0.07, zorder=0)
+    for panel in (ax, ax_sc):
+        for seg_s, seg_e, stage in segments:
+            panel.axvspan(seg_s - 0.5, seg_e - 0.5,
+                          color=_STAGE_BG.get(stage, "#888888"), alpha=0.07, zorder=0)
 
-    # ── 1. Floating range bars (trough → peak, light blue) ───────────────
+    # ════════════════════════════════════════════════════════════════════
+    # TOP PANEL — sparklines inside cycle range bars (%pt)
+    # ════════════════════════════════════════════════════════════════════
+
+    # 1. Floating range bars (trough → peak)
     for i in range(n):
         p, b = peaks[i], troughs[i]
         if not (np.isnan(p) or np.isnan(b)):
             ax.bar(x[i], height=p - b, bottom=b,
-                   color="#93c5fd", alpha=0.50, width=0.8, zorder=1,
-                   linewidth=0)
+                   color="#93c5fd", alpha=0.50, width=0.8, zorder=1, linewidth=0)
 
-    # ── 2. Zero line ──────────────────────────────────────────────────────
+    # 2. Zero line
     ax.axhline(0, color="black", linewidth=0.8, zorder=2)
 
-    # ── 3. Per-sector sparklines (Q-5 → Q0) inside each bar ──────────────
+    # 3. Per-sector sparklines (Q-5 → Q0)
     for i, nm in enumerate(names):
         qvals = sectors[nm].get("quarterly", [])
         if not qvals or len(qvals) < 2:
@@ -680,33 +693,14 @@ def plot_sector_snapshot(
         mask = ~np.isnan(yq)
         if mask.sum() < 2:
             continue
-
-        # Sparkline
         ax.plot(xq, np.where(mask, yq, np.nan),
                 color="#1e3a5f", linewidth=1.6, zorder=5,
                 marker="o", markersize=3,
                 markerfacecolor="#1e3a5f", markeredgewidth=0)
-
-        # Highlight Q0 (current) with larger filled circle
         if mask[-1]:
-            ax.scatter([xq[-1]], [yq[-1]], s=55, color="#1e3a5f",
-                       zorder=6, linewidths=0)
+            ax.scatter([xq[-1]], [yq[-1]], s=55, color="#1e3a5f", zorder=6, linewidths=0)
 
-        # Recovery score annotation to the right of Q0
-        rs = sectors[nm].get("recovery_score", float("nan"))
-        if not np.isnan(rs) and mask[-1]:
-            ax.annotate(
-                f"{rs:.0f}",
-                xy=(xq[-1], float(yq[-1])),
-                xytext=(4, 0),
-                textcoords="offset points",
-                ha="left", va="center",
-                fontsize=7, color="#14532d", fontweight="bold",
-            )
-
-    # ── 4. Axes and labels ────────────────────────────────────────────────
-    ax.set_xticks(x)
-    ax.set_xticklabels(names, rotation=90, ha="center", fontsize=8)
+    # 4. Top-panel labels and legend
     ax.set_ylabel("(%pt)", fontsize=9)
     ax.yaxis.set_label_coords(-0.04, 1.02)
     ax.yaxis.label.set_rotation(0)
@@ -717,7 +711,6 @@ def plot_sector_snapshot(
     )
     ax.grid(axis="y", alpha=0.3, linewidth=0.5)
 
-    # Stage legend
     seen_stages = {sectors[nm].get("cycle_stage", "mid") for nm in names}
     for stage in ["early", "mid", "late"]:
         if stage in seen_stages:
@@ -726,6 +719,45 @@ def plot_sector_snapshot(
     ax.plot([], [], color="#1e3a5f", linewidth=1.6, marker="o", markersize=4,
             label="Q-5→Q0 推移")
     ax.legend(fontsize=8, loc="upper right")
+
+    # ════════════════════════════════════════════════════════════════════
+    # BOTTOM PANEL — recovery scores (0-100)
+    # ════════════════════════════════════════════════════════════════════
+
+    # Color bars by score level: green ≥ 60, yellow 40-60, red < 40
+    def _score_color(s: float) -> str:
+        if np.isnan(s):
+            return "#475569"
+        if s >= 60:
+            return "#22c55e"
+        if s >= 40:
+            return "#f59e0b"
+        return "#ef4444"
+
+    bar_colors = [_score_color(scores[i]) for i in range(n)]
+    sc_vals = np.where(np.isnan(scores), 0.0, scores)
+    ax_sc.bar(x, sc_vals, color=bar_colors, width=0.7, zorder=2, alpha=0.8)
+
+    # Score labels inside bars
+    for i in range(n):
+        s = scores[i]
+        if np.isnan(s):
+            continue
+        ypos = min(float(s) / 2, float(s) - 4)  # midpoint of bar, avoid overflow
+        ax_sc.text(x[i], max(ypos, 3), f"{s:.0f}",
+                   ha="center", va="bottom", fontsize=7,
+                   fontweight="bold", color="white")
+
+    ax_sc.axhline(50, color="#94a3b8", linewidth=0.8, linestyle="--", zorder=1)
+    ax_sc.set_ylim(0, 110)
+    ax_sc.set_ylabel("回復\nスコア", fontsize=8, linespacing=1.3)
+    ax_sc.yaxis.set_label_coords(-0.04, 0.5)
+    ax_sc.yaxis.set_major_locator(mticker.MultipleLocator(50))
+    ax_sc.grid(axis="y", alpha=0.3, linewidth=0.5)
+
+    # Shared x-axis labels on bottom panel
+    ax_sc.set_xticks(x)
+    ax_sc.set_xticklabels(names, rotation=90, ha="center", fontsize=8)
 
     plt.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
