@@ -1,16 +1,16 @@
 {
   "ok": true,
   "country": "KR",
-  "as_of": "2026-05",
+  "as_of": "2026-06",
   "stage": "軟化",
-  "level": 72.7,
-  "momentum": -0.42,
-  "cb_stance": "ややビハインド",
-  "cb_detail": "Taylor比 -0.0%下、緩和的 / YC +1.54%",
-  "real_policy_rate": -0.0,
-  "yc_10y2y": 1.54,
+  "level": 73.5,
+  "momentum": 0.03,
+  "cb_stance": "中立",
+  "cb_detail": "実質金利 +0.1% / YC +1.64%",
+  "real_policy_rate": 0.05,
+  "yc_10y2y": 1.64,
   "real_wage_yoy": null,
-  "core_cpi_yoy": 2.54,
+  "core_cpi_yoy": 2.48,
   "top3_level": [
     {
       "id": "exports_yoy",
@@ -25,18 +25,18 @@
       "id": "yc_10y2y",
       "name_ja": "イールドカーブ(韓国)",
       "category": "financial",
-      "percentile": 91.7,
-      "z": 1.43,
-      "value": 1.538,
+      "percentile": 95.8,
+      "z": 1.57,
+      "value": 1.644,
       "transform": "derived"
     },
     {
       "id": "core_cpi_yoy",
       "name_ja": "コアCPI YoY(韓国)",
       "category": "inflation",
-      "percentile": 79.2,
-      "z": 0.67,
-      "value": 2.538,
+      "percentile": 77.5,
+      "z": 0.62,
+      "value": 2.483,
       "transform": "level"
     }
   ],
@@ -54,9 +54,9 @@
       "id": "yc_10y2y",
       "name_ja": "イールドカーブ(韓国)",
       "category": "financial",
-      "percentile": 91.7,
-      "z": 1.43,
-      "value": 1.538,
+      "percentile": 95.8,
+      "z": 1.57,
+      "value": 1.644,
       "transform": "derived"
     },
     {
@@ -64,8 +64,8 @@
       "name_ja": "企業信頼感(韓国)",
       "category": "consumption",
       "percentile": 77.5,
-      "z": 0.75,
-      "value": 6.1,
+      "z": 0.8,
+      "value": 6.6,
       "transform": "level"
     }
   ],
@@ -74,9 +74,9 @@
       "id": "ip_yoy",
       "name_ja": "鉱工業生産指数 YoY(韓国)",
       "category": "production",
-      "percentile": 40.8,
-      "z": -0.13,
-      "value": 1.554,
+      "percentile": 35.0,
+      "z": -0.3,
+      "value": 0.706,
       "transform": "level"
     },
     "exports_yoy": {
@@ -92,9 +92,9 @@
       "id": "core_cpi_yoy",
       "name_ja": "コアCPI YoY(韓国)",
       "category": "inflation",
-      "percentile": 79.2,
-      "z": 0.67,
-      "value": 2.538,
+      "percentile": 77.5,
+      "z": 0.62,
+      "value": 2.483,
       "transform": "level"
     },
     "consumer_confidence": {
@@ -102,26 +102,26 @@
       "name_ja": "企業信頼感(韓国)",
       "category": "consumption",
       "percentile": 77.5,
-      "z": 0.75,
-      "value": 6.1,
+      "z": 0.8,
+      "value": 6.6,
       "transform": "level"
     },
     "real_policy_rate": {
       "id": "real_policy_rate",
       "name_ja": "実質政策金利(韓国)",
       "category": "financial",
-      "percentile": 42.5,
-      "z": -0.09,
-      "value": -0.001,
+      "percentile": 43.3,
+      "z": -0.04,
+      "value": 0.054,
       "transform": "derived"
     },
     "yc_10y2y": {
       "id": "yc_10y2y",
       "name_ja": "イールドカーブ(韓国)",
       "category": "financial",
-      "percentile": 91.7,
-      "z": 1.43,
-      "value": 1.538,
+      "percentile": 95.8,
+      "z": 1.57,
+      "value": 1.644,
       "transform": "derived"
     }
   }

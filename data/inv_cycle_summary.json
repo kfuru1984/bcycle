@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25",
+  "generated_at": "2026-07-25",
   "JP": {
     "ok": false,
     "error": "'STATISTICAL_DATA'"
@@ -12,36 +12,36 @@
     "top3_recovery": [
       {
         "name": "コンピューター・電子機器",
-        "score": 98.9
+        "score": 90.8
       },
       {
         "name": "電気機械",
-        "score": 59.6
+        "score": 82.8
       },
       {
         "name": "一般機械",
-        "score": 58.1
+        "score": 54.1
       }
     ],
     "bot3_recovery": [
       {
         "name": "一次金属",
-        "score": 31.2
-      },
-      {
-        "name": "プラスチック・ゴム",
-        "score": 36.9
+        "score": 26.1
       },
       {
         "name": "石油化学・化学",
-        "score": 43.0
+        "score": 41.8
+      },
+      {
+        "name": "紙製品",
+        "score": 46.2
       }
     ]
   },
   "EU": {
     "ok": true,
     "phase": "データなし",
-    "prev_phase": null,
+    "prev_phase": "データなし",
     "phase_changed": false,
     "top3_recovery": [],
     "bot3_recovery": []
@@ -49,10 +49,10 @@
   "CN": {
     "ok": true,
     "phase": "データなし",
-    "prev_phase": null,
+    "prev_phase": "データなし",
     "phase_changed": false,
     "top3_recovery": [],
     "bot3_recovery": []
   },
-  "narrative": "USの在庫循環は積み増し加速フェーズ（回復スコア最上位: コンピューター・電子機器 99pt）。"
+  "narrative": "USの在庫循環は積み増し加速フェーズ（回復スコア最上位: コンピューター・電子機器 91pt）。"
 }
