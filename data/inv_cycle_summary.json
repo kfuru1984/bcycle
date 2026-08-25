@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25",
+  "generated_at": "2026-08-25",
   "JP": {
     "ok": false,
     "error": "'STATISTICAL_DATA'"
@@ -12,29 +12,29 @@
     "top3_recovery": [
       {
         "name": "コンピューター・電子機器",
-        "score": 90.8
+        "score": 96.0
       },
       {
         "name": "電気機械",
-        "score": 82.8
+        "score": 93.7
       },
       {
         "name": "一般機械",
-        "score": 54.1
+        "score": 77.0
       }
     ],
     "bot3_recovery": [
       {
-        "name": "一次金属",
-        "score": 26.1
-      },
-      {
         "name": "石油化学・化学",
-        "score": 41.8
+        "score": 34.3
       },
       {
-        "name": "紙製品",
-        "score": 46.2
+        "name": "一次金属",
+        "score": 35.0
+      },
+      {
+        "name": "輸送機械",
+        "score": 49.4
       }
     ]
   },
@@ -54,5 +54,5 @@
     "top3_recovery": [],
     "bot3_recovery": []
   },
-  "narrative": "USの在庫循環は積み増し加速フェーズ（回復スコア最上位: コンピューター・電子機器 91pt）。"
+  "narrative": "USの在庫循環は積み増し加速フェーズ（回復スコア最上位: コンピューター・電子機器 96pt）。"
 }

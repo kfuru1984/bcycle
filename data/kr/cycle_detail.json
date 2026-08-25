@@ -3,8 +3,8 @@
   "country": "KR",
   "as_of": "2026-06",
   "stage": "軟化",
-  "level": 73.5,
-  "momentum": 0.03,
+  "level": 78.8,
+  "momentum": 0.54,
   "cb_stance": "中立",
   "cb_detail": "実質金利 +0.1% / YC +1.64%",
   "real_policy_rate": 0.05,
@@ -16,9 +16,9 @@
       "id": "exports_yoy",
       "name_ja": "輸出YoY(韓国)",
       "category": "external",
-      "percentile": 99.2,
-      "z": 2.92,
-      "value": 48.804,
+      "percentile": 100.0,
+      "z": 3.89,
+      "value": 70.671,
       "transform": "level"
     },
     {
@@ -45,9 +45,9 @@
       "id": "exports_yoy",
       "name_ja": "輸出YoY(韓国)",
       "category": "external",
-      "percentile": 99.2,
-      "z": 2.92,
-      "value": 48.804,
+      "percentile": 100.0,
+      "z": 3.89,
+      "value": 70.671,
       "transform": "level"
     },
     {
@@ -83,9 +83,9 @@
       "id": "exports_yoy",
       "name_ja": "輸出YoY(韓国)",
       "category": "external",
-      "percentile": 99.2,
-      "z": 2.92,
-      "value": 48.804,
+      "percentile": 100.0,
+      "z": 3.89,
+      "value": 70.671,
       "transform": "level"
     },
     "core_cpi_yoy": {
