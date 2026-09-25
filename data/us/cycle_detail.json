@@ -1,16 +1,16 @@
 {
   "ok": true,
   "country": "US",
-  "as_of": "2026-07",
+  "as_of": "2026-08",
   "stage": "下降",
-  "level": 44.5,
-  "momentum": -0.01,
+  "level": 50.6,
+  "momentum": 0.94,
   "cb_stance": "中立",
-  "cb_detail": "実質金利 +0.8% / YC +0.38%",
-  "real_policy_rate": 0.84,
-  "yc_10y2y": 0.38,
-  "real_wage_yoy": 0.37,
-  "core_cpi_yoy": 2.79,
+  "cb_detail": "実質金利 +0.9% / YC +0.47%",
+  "real_policy_rate": 0.87,
+  "yc_10y2y": 0.47,
+  "real_wage_yoy": 0.32,
+  "core_cpi_yoy": 2.76,
   "top3_level": [
     {
       "id": "real_policy_rate",
@@ -18,26 +18,26 @@
       "category": "financial",
       "percentile": 75.0,
       "z": 0.8,
-      "value": 0.843,
+      "value": 0.867,
       "transform": "derived"
     },
     {
       "id": "ip_yoy",
       "name_ja": "鉱工業生産指数 YoY",
       "category": "production",
-      "percentile": 61.7,
-      "z": 0.19,
-      "value": 1.079,
+      "percentile": 68.3,
+      "z": 0.26,
+      "value": 1.42,
       "transform": "yoy_pct"
     },
     {
-      "id": "core_cpi_yoy",
-      "name_ja": "コアCPI YoY",
-      "category": "inflation",
-      "percentile": 51.7,
-      "z": -0.24,
-      "value": 2.787,
-      "transform": "yoy_pct"
+      "id": "yc_10y2y",
+      "name_ja": "イールドカーブ(10Y-2Y)",
+      "category": "financial",
+      "percentile": 53.3,
+      "z": 0.21,
+      "value": 0.468,
+      "transform": "level"
     }
   ],
   "top3_momentum": [
@@ -45,19 +45,10 @@
       "id": "consumer_confidence",
       "name_ja": "消費者信頼感(ミシガン大学)",
       "category": "consumption",
-      "percentile": 1.7,
-      "z": -1.68,
-      "value": 49.5,
-      "transform": "level"
-    },
-    {
-      "id": "housing_starts_yoy",
-      "name_ja": "住宅着工件数 YoY",
-      "category": "housing",
       "percentile": 10.8,
-      "z": -1.11,
-      "value": -13.478,
-      "transform": "yoy_pct"
+      "z": -1.32,
+      "value": 55.2,
+      "transform": "level"
     },
     {
       "id": "real_policy_rate",
@@ -65,8 +56,17 @@
       "category": "financial",
       "percentile": 75.0,
       "z": 0.8,
-      "value": 0.843,
+      "value": 0.867,
       "transform": "derived"
+    },
+    {
+      "id": "ip_yoy",
+      "name_ja": "鉱工業生産指数 YoY",
+      "category": "production",
+      "percentile": 68.3,
+      "z": 0.26,
+      "value": 1.42,
+      "transform": "yoy_pct"
     }
   ],
   "per_indicators": {
@@ -74,16 +74,16 @@
       "id": "ip_yoy",
       "name_ja": "鉱工業生産指数 YoY",
       "category": "production",
-      "percentile": 61.7,
-      "z": 0.19,
-      "value": 1.079,
+      "percentile": 68.3,
+      "z": 0.26,
+      "value": 1.42,
       "transform": "yoy_pct"
     },
     "unemployment_rate": {
       "id": "unemployment_rate",
       "name_ja": "失業率",
       "category": "labor",
-      "percentile": 50.0,
+      "percentile": 49.6,
       "z": 0.26,
       "value": 4.1,
       "transform": "level"
@@ -92,27 +92,27 @@
       "id": "nfp_yoy",
       "name_ja": "非農業部門雇用者数 YoY",
       "category": "labor",
-      "percentile": 14.2,
-      "z": -0.26,
-      "value": 0.199,
+      "percentile": 19.2,
+      "z": -0.2,
+      "value": 0.381,
       "transform": "yoy_pct"
     },
     "housing_starts_yoy": {
       "id": "housing_starts_yoy",
       "name_ja": "住宅着工件数 YoY",
       "category": "housing",
-      "percentile": 10.8,
-      "z": -1.11,
-      "value": -13.478,
+      "percentile": 40.8,
+      "z": -0.25,
+      "value": -1.239,
       "transform": "yoy_pct"
     },
     "core_cpi_yoy": {
       "id": "core_cpi_yoy",
       "name_ja": "コアCPI YoY",
       "category": "inflation",
-      "percentile": 51.7,
-      "z": -0.24,
-      "value": 2.787,
+      "percentile": 49.2,
+      "z": -0.26,
+      "value": 2.763,
       "transform": "yoy_pct"
     },
     "real_policy_rate": {
@@ -121,25 +121,25 @@
       "category": "financial",
       "percentile": 75.0,
       "z": 0.8,
-      "value": 0.843,
+      "value": 0.867,
       "transform": "derived"
     },
     "yc_10y2y": {
       "id": "yc_10y2y",
       "name_ja": "イールドカーブ(10Y-2Y)",
       "category": "financial",
-      "percentile": 49.2,
-      "z": 0.04,
-      "value": 0.377,
+      "percentile": 53.3,
+      "z": 0.21,
+      "value": 0.468,
       "transform": "level"
     },
     "consumer_confidence": {
       "id": "consumer_confidence",
       "name_ja": "消費者信頼感(ミシガン大学)",
       "category": "consumption",
-      "percentile": 1.7,
-      "z": -1.68,
-      "value": 49.5,
+      "percentile": 10.8,
+      "z": -1.32,
+      "value": 55.2,
       "transform": "level"
     }
   }
