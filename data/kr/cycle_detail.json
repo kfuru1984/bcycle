@@ -1,43 +1,43 @@
 {
   "ok": true,
   "country": "KR",
-  "as_of": "2026-08",
-  "stage": "成熟",
-  "level": 68.1,
-  "momentum": -0.34,
-  "cb_stance": "ややビハインド",
-  "cb_detail": "Taylor比 -0.6%下、緩和的 / YC +1.48%",
-  "real_policy_rate": -0.56,
-  "yc_10y2y": 1.48,
+  "as_of": "2026-09",
+  "stage": "軟化",
+  "level": 73.6,
+  "momentum": -0.52,
+  "cb_stance": "中立",
+  "cb_detail": "実質金利 +0.2% / YC +1.41%",
+  "real_policy_rate": 0.25,
+  "yc_10y2y": 1.41,
   "real_wage_yoy": null,
-  "core_cpi_yoy": 3.37,
+  "core_cpi_yoy": 2.8,
   "top3_level": [
     {
       "id": "exports_yoy",
       "name_ja": "輸出YoY(韓国)",
       "category": "external",
-      "percentile": 100.0,
-      "z": 3.89,
-      "value": 70.671,
-      "transform": "level"
-    },
-    {
-      "id": "core_cpi_yoy",
-      "name_ja": "コアCPI YoY(韓国)",
-      "category": "inflation",
-      "percentile": 89.2,
-      "z": 1.42,
-      "value": 3.368,
+      "percentile": 99.2,
+      "z": 3.32,
+      "value": 67.764,
       "transform": "level"
     },
     {
       "id": "yc_10y2y",
       "name_ja": "イールドカーブ(韓国)",
       "category": "financial",
-      "percentile": 89.2,
-      "z": 1.25,
-      "value": 1.477,
+      "percentile": 86.7,
+      "z": 1.12,
+      "value": 1.41,
       "transform": "derived"
+    },
+    {
+      "id": "core_cpi_yoy",
+      "name_ja": "コアCPI YoY(韓国)",
+      "category": "inflation",
+      "percentile": 80.8,
+      "z": 0.88,
+      "value": 2.796,
+      "transform": "level"
     }
   ],
   "top3_momentum": [
@@ -45,28 +45,28 @@
       "id": "exports_yoy",
       "name_ja": "輸出YoY(韓国)",
       "category": "external",
-      "percentile": 100.0,
-      "z": 3.89,
-      "value": 70.671,
-      "transform": "level"
-    },
-    {
-      "id": "core_cpi_yoy",
-      "name_ja": "コアCPI YoY(韓国)",
-      "category": "inflation",
-      "percentile": 89.2,
-      "z": 1.42,
-      "value": 3.368,
+      "percentile": 99.2,
+      "z": 3.32,
+      "value": 67.764,
       "transform": "level"
     },
     {
       "id": "yc_10y2y",
       "name_ja": "イールドカーブ(韓国)",
       "category": "financial",
-      "percentile": 89.2,
-      "z": 1.25,
-      "value": 1.477,
+      "percentile": 86.7,
+      "z": 1.12,
+      "value": 1.41,
       "transform": "derived"
+    },
+    {
+      "id": "core_cpi_yoy",
+      "name_ja": "コアCPI YoY(韓国)",
+      "category": "inflation",
+      "percentile": 80.8,
+      "z": 0.88,
+      "value": 2.796,
+      "transform": "level"
     }
   ],
   "per_indicators": {
@@ -74,54 +74,54 @@
       "id": "ip_yoy",
       "name_ja": "鉱工業生産指数 YoY(韓国)",
       "category": "production",
-      "percentile": 80.8,
-      "z": 0.72,
-      "value": 5.455,
+      "percentile": 21.7,
+      "z": -0.64,
+      "value": -0.852,
       "transform": "level"
     },
     "exports_yoy": {
       "id": "exports_yoy",
       "name_ja": "輸出YoY(韓国)",
       "category": "external",
-      "percentile": 100.0,
-      "z": 3.89,
-      "value": 70.671,
+      "percentile": 99.2,
+      "z": 3.32,
+      "value": 67.764,
       "transform": "level"
     },
     "core_cpi_yoy": {
       "id": "core_cpi_yoy",
       "name_ja": "コアCPI YoY(韓国)",
       "category": "inflation",
-      "percentile": 89.2,
-      "z": 1.42,
-      "value": 3.368,
+      "percentile": 80.8,
+      "z": 0.88,
+      "value": 2.796,
       "transform": "level"
     },
     "consumer_confidence": {
       "id": "consumer_confidence",
       "name_ja": "企業信頼感(韓国)",
       "category": "consumption",
-      "percentile": 72.5,
-      "z": 0.54,
-      "value": 4.5,
+      "percentile": 76.2,
+      "z": 0.79,
+      "value": 6.6,
       "transform": "level"
     },
     "real_policy_rate": {
       "id": "real_policy_rate",
       "name_ja": "実質政策金利(韓国)",
       "category": "financial",
-      "percentile": 21.7,
-      "z": -0.76,
-      "value": -0.559,
+      "percentile": 50.8,
+      "z": 0.17,
+      "value": 0.248,
       "transform": "derived"
     },
     "yc_10y2y": {
       "id": "yc_10y2y",
       "name_ja": "イールドカーブ(韓国)",
       "category": "financial",
-      "percentile": 89.2,
-      "z": 1.25,
-      "value": 1.477,
+      "percentile": 86.7,
+      "z": 1.12,
+      "value": 1.41,
       "transform": "derived"
     }
   }
