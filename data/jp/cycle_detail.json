@@ -1,42 +1,42 @@
 {
   "ok": true,
   "country": "JP",
-  "as_of": "2026-08",
+  "as_of": "2026-09",
   "stage": "成熟",
-  "level": 62.3,
-  "momentum": -0.37,
-  "cb_stance": "ややビハインド",
-  "cb_detail": "Taylor比 -0.8%下、緩和的 / YC +1.96%",
-  "real_policy_rate": -0.82,
-  "yc_10y2y": 1.96,
-  "real_wage_yoy": 3.19,
-  "core_cpi_yoy": 1.79,
+  "level": 66.1,
+  "momentum": -0.14,
+  "cb_stance": "ビハインド・ザ・カーブ",
+  "cb_detail": "Taylor比 -1.1%下、利上げ遅れ / YC +2.01%",
+  "real_policy_rate": -1.11,
+  "yc_10y2y": 2.01,
+  "real_wage_yoy": 3.67,
+  "core_cpi_yoy": 2.15,
   "top3_level": [
     {
       "id": "yc_10y2y",
       "name_ja": "JGB イールドカーブ勾配(10Y - TONA、%)",
       "category": "financial",
       "percentile": 100.0,
-      "z": 3.0,
-      "value": 1.963,
+      "z": 2.94,
+      "value": 2.007,
       "transform": "derived"
-    },
-    {
-      "id": "ip_yoy",
-      "name_ja": "鉱工業生産指数(前年同月比、季調済)",
-      "category": "production",
-      "percentile": 90.0,
-      "z": 0.75,
-      "value": 3.561,
-      "transform": "level"
     },
     {
       "id": "unemployment_rate",
       "name_ja": "完全失業率(季調値、%)",
       "category": "labor",
-      "percentile": 76.2,
-      "z": 0.68,
-      "value": 2.6,
+      "percentile": 89.6,
+      "z": 1.12,
+      "value": 2.5,
+      "transform": "level"
+    },
+    {
+      "id": "ip_yoy",
+      "name_ja": "鉱工業生産指数(前年同月比、季調済)",
+      "category": "production",
+      "percentile": 78.3,
+      "z": 0.49,
+      "value": 2.165,
       "transform": "level"
     }
   ],
@@ -46,26 +46,26 @@
       "name_ja": "JGB イールドカーブ勾配(10Y - TONA、%)",
       "category": "financial",
       "percentile": 100.0,
-      "z": 3.0,
-      "value": 1.963,
+      "z": 2.94,
+      "value": 2.007,
       "transform": "derived"
+    },
+    {
+      "id": "unemployment_rate",
+      "name_ja": "完全失業率(季調値、%)",
+      "category": "labor",
+      "percentile": 89.6,
+      "z": 1.12,
+      "value": 2.5,
+      "transform": "level"
     },
     {
       "id": "jobs_to_applicants_ratio",
       "name_ja": "有効求人倍率(除学卒、季調済)",
       "category": "labor",
-      "percentile": 19.6,
-      "z": -0.86,
-      "value": 1.18,
-      "transform": "level"
-    },
-    {
-      "id": "ip_yoy",
-      "name_ja": "鉱工業生産指数(前年同月比、季調済)",
-      "category": "production",
-      "percentile": 90.0,
-      "z": 0.75,
-      "value": 3.561,
+      "percentile": 24.6,
+      "z": -0.8,
+      "value": 1.19,
       "transform": "level"
     }
   ],
@@ -74,18 +74,18 @@
       "id": "ip_yoy",
       "name_ja": "鉱工業生産指数(前年同月比、季調済)",
       "category": "production",
-      "percentile": 90.0,
-      "z": 0.75,
-      "value": 3.561,
+      "percentile": 78.3,
+      "z": 0.49,
+      "value": 2.165,
       "transform": "level"
     },
     "unemployment_rate": {
       "id": "unemployment_rate",
       "name_ja": "完全失業率(季調値、%)",
       "category": "labor",
-      "percentile": 76.2,
-      "z": 0.68,
-      "value": 2.6,
+      "percentile": 89.6,
+      "z": 1.12,
+      "value": 2.5,
       "transform": "level"
     },
     "housing_starts_yoy": {
@@ -101,27 +101,27 @@
       "id": "core_cpi_yoy",
       "name_ja": "コアCPI(生鮮食品除く総合、前年同月比)",
       "category": "inflation",
-      "percentile": 61.3,
-      "z": 0.32,
-      "value": 1.792,
+      "percentile": 65.0,
+      "z": 0.57,
+      "value": 2.154,
       "transform": "yoy_pct"
     },
     "jobs_to_applicants_ratio": {
       "id": "jobs_to_applicants_ratio",
       "name_ja": "有効求人倍率(除学卒、季調済)",
       "category": "labor",
-      "percentile": 19.6,
-      "z": -0.86,
-      "value": 1.18,
+      "percentile": 24.6,
+      "z": -0.8,
+      "value": 1.19,
       "transform": "level"
     },
     "real_policy_rate": {
       "id": "real_policy_rate",
       "name_ja": "実質政策金利(TONA - コアCPI YoY)",
       "category": "financial",
-      "percentile": 54.2,
-      "z": 0.37,
-      "value": -0.815,
+      "percentile": 39.2,
+      "z": 0.15,
+      "value": -1.111,
       "transform": "derived"
     },
     "yc_10y2y": {
@@ -129,8 +129,8 @@
       "name_ja": "JGB イールドカーブ勾配(10Y - TONA、%)",
       "category": "financial",
       "percentile": 100.0,
-      "z": 3.0,
-      "value": 1.963,
+      "z": 2.94,
+      "value": 2.007,
       "transform": "derived"
     }
   }
